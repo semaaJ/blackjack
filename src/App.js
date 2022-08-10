@@ -1,23 +1,17 @@
-import logo from './logo.svg';
+import React, { useState } from 'react';
+import { initialiseGame, dealRound, playerBet, playerHit } from './BlackJack';
 import './App.css';
 
 function App() {
+  const [state, setState] = useState(initialiseGame());
+
+  const init = () => setState(dealRound(state));
+  const bet = (amount) => setState(playerBet(state, 100));
+  const hit = () =>   setState(playerHit(state));
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="w-screen h-screen bg-slate-700">
+      
     </div>
   );
 }
