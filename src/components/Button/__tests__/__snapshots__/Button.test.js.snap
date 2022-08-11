@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should render 1`] = `
+<button
+  className="text-center ml-1 mr-1 text-white bg-indigo-500 border-0 py-2 px-5 focus:outline-none hover:bg-indigo-600 rounded"
+/>
+`;
+
+exports[`should render disabled when disabled prop passed 1`] = `
+<button
+  className="text-center ml-1 mr-1 text-white bg-indigo-500 border-0 py-2 px-5 focus:outline-none hover:bg-indigo-600 rounded"
+  disabled={true}
+/>
+`;
+
+exports[`should render with text 1`] = `
+<button
+  className="text-center ml-1 mr-1 text-white bg-indigo-500 border-0 py-2 px-5 focus:outline-none hover:bg-indigo-600 rounded"
+>
+  name
+</button>
+`;

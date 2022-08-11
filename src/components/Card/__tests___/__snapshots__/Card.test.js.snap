@@ -1,0 +1,125 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should render 1`] = `
+<div
+  className="cursor-pointer bg-white px-3 shadow-xl ring-1 ring-gray-900/5 w-40 h-60 m-4"
+>
+  <div
+    className="mx-auto "
+  >
+    <div
+      className="flex flex-col w-full"
+    >
+      <h1
+        className="text-4xl undefined"
+      />
+      <h1
+        className="text-4xl undefined"
+      />
+    </div>
+    <div
+      className="flex justify-center"
+    >
+      <h1
+        className="text-7xl undefined"
+      />
+    </div>
+    <div
+      className="flex flex-col w-full items-end"
+    >
+      <h1
+        className="text-4xl undefined"
+      />
+      <h1
+        className="text-4xl undefined"
+      />
+    </div>
+  </div>
+</div>
+`;
+
+exports[`should render with classNames 1`] = `
+<div
+  className="absolute mt-8 cursor-pointer bg-white px-3 shadow-xl ring-1 ring-gray-900/5 w-40 h-60 m-4"
+>
+  <div
+    className="mx-auto "
+  >
+    <div
+      className="flex flex-col w-full"
+    >
+      <h1
+        className="text-4xl undefined"
+      />
+      <h1
+        className="text-4xl undefined"
+      />
+    </div>
+    <div
+      className="flex justify-center"
+    >
+      <h1
+        className="text-7xl undefined"
+      />
+    </div>
+    <div
+      className="flex flex-col w-full items-end"
+    >
+      <h1
+        className="text-4xl undefined"
+      />
+      <h1
+        className="text-4xl undefined"
+      />
+    </div>
+  </div>
+</div>
+`;
+
+exports[`should render with text & colour 1`] = `
+<div
+  className="cursor-pointer bg-white px-3 shadow-xl ring-1 ring-gray-900/5 w-40 h-60 m-4"
+>
+  <div
+    className="mx-auto "
+  >
+    <div
+      className="flex flex-col w-full"
+    >
+      <h1
+        className="text-4xl text-rose-500"
+      >
+        test
+      </h1>
+      <h1
+        className="text-4xl text-rose-500"
+      >
+        test
+      </h1>
+    </div>
+    <div
+      className="flex justify-center"
+    >
+      <h1
+        className="text-7xl text-rose-500"
+      >
+        test
+      </h1>
+    </div>
+    <div
+      className="flex flex-col w-full items-end"
+    >
+      <h1
+        className="text-4xl text-rose-500"
+      >
+        test
+      </h1>
+      <h1
+        className="text-4xl text-rose-500"
+      >
+        test
+      </h1>
+    </div>
+  </div>
+</div>
+`;
