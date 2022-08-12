@@ -1,12 +1,11 @@
 const Button = (props) => {
     const { id, text, disabled, onClick } = props;
-
     return (
         <button 
+            disabled={disabled}
             id={id}
-            disabled={disabled} 
             onClick={onClick} 
-            className="text-center ml-1 mr-1 text-white bg-indigo-500 border-0 py-2 px-5 focus:outline-none hover:bg-indigo-600 rounded">
+            className="w-btn h-btn text-center text-gray-700 font-semibold bg-white border-white focus:outline-none hover:bg-gray-200 disabled:bg-gray-200">
                 { text }
         </button>
     )

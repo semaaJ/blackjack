@@ -11,10 +11,11 @@ import {
     playerStand,
     isBlackJack,
     isBust,
-    calculateWin,
+    makeMove,
     clearCards,
     nextHand,
-    showSecondCard
+    showSecondCard,
+    playerDoubleDown
 } from '../BlackJack';
 
 const createGameState = () => {
@@ -76,8 +77,7 @@ it("should deal two cards to the house and player on dealers round", () => {
 
 it("should allow the player to bet & remove from their balance", () => {
     const betState = playerBet(GAME_STATE, 100);
-    // Pot will be 200 here as house matches player bet
-    expect(betState.pot === 200).toBe(true);
+    expect(betState.pot === 100).toBe(true);
     expect(betState.player.bank === 900).toBe(true);
 });
 
@@ -110,20 +110,24 @@ it("should calculate king, jack and queen score correctly", () => {
     expect(calculateScore(cards)).toBe(14);
  });
 
-it("should recognise a blackjack", () => {
+ it("should calculate score with two aces correctly", () => {
+    const cards = [{ rank: "A"}, { rank: "A"}];
+    expect(calculateScore(cards)).toBe(12);
+ });
+
+it("should return true on blackjack", () => {
     const cards = [{ rank: "A"}, { rank: "K" }];
     expect(isBlackJack(cards)).toBe(true);
 });
 
-it("should return true when a player's score is > 21", () => {
-    const player = { score: 25 };
-    expect(isBust(player)).toBe(true);
+it("should return false on !blackjack", () => {
+    const cards = [{ rank: "9"}, { rank: "1" }, { rank: "1" }];
+    expect(isBlackJack(cards)).toBe(false);
 });
 
-it("should return false when a player's score is > 21", () => {
-    const player = { score: 1 };
-    expect(isBust(player)).toBe(false);
-});
+it("should return true when a player's score is > 21", () => expect(isBust(25)).toBe(true));
+
+it("should return false when a player's score is > 21", () => expect(isBust(1)).toBe(false));
 
 it("should remove the cards from house/players hands and place at the bottom of the deck", () => {
     const state = createGameState();
@@ -151,7 +155,7 @@ it("should set showSecond to true", () => {
     expect(second.house.showSecond).toBe(true);
 });
 
-it("should give players new cards & win variables to false", () => {
+it("should give players new cards & set win variables to false", () => {
     const state = createGameState();
     const next = nextHand({
         ...state,
@@ -160,21 +164,195 @@ it("should give players new cards & win variables to false", () => {
             ...state.house,
             isWin: false,
             isBust: true,
-            cards: [{ rank: "A"}, { rank: "K"}, { rank: "3"}]
+            cards: [{ rank: "A"}, { rank: "2"}, { rank: "2"}]
         },
         player: {
             ...state.player,
             isWin: true,
             isBust: false,
-            cards: [{ rank: "A"}]
+            cards: [{ rank: "A"}, { rank: "3"}, { rank: "2"}]
         },
     });
     expect(next.house.cards.length).toBe(2);
     expect(next.player.cards.length).toBe(2);
-    expect(next.initialBet).toBe(false);
+    expect(next.initialBet).toBe(true);
     expect(next.house.isBust).toBe(false);
     expect(next.player.isWin).toBe(false);
-})
+});
+
+it("should allow a player to win on stand if house bust", () => {
+    const state = createGameState();
+    const standState = playerStand({
+        ...state,
+        pot: 100,
+        player: {
+            ...state.player,
+            cards: [{ rank: "K", rank: "A"}]
+        },
+        house: {
+            ...state.house,
+            cards: [{ rank: "K" }, { rank: "9"}, { rank: "9"} ]
+        }
+    });
+    expect(standState.playerWins).toBe(true);
+    expect(standState.player.bank).toBe(1200);
+});
+
+it("should pull a new card from the deck on stand when house score < 17", () => {
+    const state = createGameState();
+    const standState = playerStand({
+        ...state,
+        pot: 100,
+        player: {
+            ...state.player,
+            cards: [{ rank: "K", rank: "A"}]
+        },
+        house: {
+            ...state.house,
+            cards: [{ rank: "2" }, { rank: "9"} ]
+        }
+    });
+    expect(standState.house.cards.length).toBe(3);
+});
+
+it("should allow a player to win  on stand when their score is closer to 21 than houses", () => {
+    const state = createGameState();
+    const standState = playerStand({
+        ...state,
+        pot: 100,
+        player: {
+            ...state.player,
+            score: 20,
+            cards: [{ rank: "K", rank: "10"}]
+        },
+        house: {
+            ...state.house,
+            score: 19,
+            cards: [{ rank: "10" }, { rank: "9"} ]
+        }
+    });
+    expect(standState.playerWins).toBe(true);
+});
+
+it("should allow house to win  on stand when their score is closer to 21 than player", () => {
+    const state = createGameState();
+    const standState = playerStand({
+        ...state,
+        pot: 100,
+        player: {
+            ...state.player,
+            score: 19,
+            cards: [{ rank: "K", rank: "9"}]
+        },
+        house: {
+            ...state.house,
+            score: 20,
+            cards: [{ rank: "10" }, { rank: "K"} ]
+        }
+    });
+    expect(standState.houseWins).toBe(true);
+});
+
+it("should tie on equal score", () => {
+    const state = createGameState();
+    const standState = playerStand({
+        ...state,
+        pot: 100,
+        player: {
+            ...state.player,
+            score: 20,
+            cards: [{ rank: "K", rank: "10"}]
+        },
+        house: {
+            ...state.house,
+            score: 20,
+            cards: [{ rank: "K" }, { rank: "10"} ]
+        }
+    });
+    expect(standState.tie).toBe(true);
+});
+
+it("should bust on hit when player score > 21", () => {
+    const state = createGameState();
+    const standState = playerHit({
+        ...state,
+        pot: 100,
+        player: {
+            ...state.player,
+            cards: [{ rank: "10"}, { rank: "10" }, { rank: "10"}]
+        },
+        house: {
+            ...state.house,
+            cards: [{ rank: "K" }, { rank: "9" }]
+        }
+    });
+    expect(standState.playerBust).toBe(true);
+    expect(standState.player.bank).toBe(900);
+});
+
+it("should split pot when both house/player have blackjack", () => {
+    const state = createGameState();
+    const standState = makeMove({
+        ...state,
+        pot: 100,
+        house: {
+            ...state.house,
+            isBlackJack: true
+        },
+        player: {
+            ...state.player,
+            isBlackJack: true
+        }
+    }, 'blackjack');
+    expect(standState.tie).toBe(true);
+    expect(standState.player.bank).toBe(1050);
+});
+
+it("should return state on dealRound when not BlackJack", () => {
+    const state = createGameState();
+    const drState = dealRound({
+        ...state,
+        house: {
+            ...state.house,
+            deck: [{ rank: "1"}, { rank: "2" }, { rank: "2" }, { rank: "2" }]
+        }
+    });
+    console.log(drState);
+    expect(drState.player.isBlackJack).toBe(false);
+});
+
+it("should return 1.5 wager when player blackjack", () => {
+    const state = createGameState();
+    const standState = makeMove({
+        ...state,
+        pot: 100,
+        house: {
+            ...state.house,
+            isBlackJack: false
+        },
+        player: {
+            ...state.player,
+            isBlackJack: true
+        }
+    }, 'blackjack');
+    expect(standState.playerWins).toBe(true);
+    expect(standState.player.bank).toBe(1150);
+});
+
+it("should double the wager when playerDoubleDown called", () => {
+    const state = createGameState();
+    const ddState = playerDoubleDown({
+        ...state,
+        pot: 200,
+        player: {
+            bank: 800,
+        }
+    });
+    expect(ddState.pot).toBe(400);
+    expect(ddState.player.bank).toBe(600);
+});
+
+
 
 
 

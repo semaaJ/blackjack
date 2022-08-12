@@ -1,56 +1,88 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import Gamebar from '../Gamebar';
+import Gamebar, { getGameStateText } from '../Gamebar';
 
-const gameState = {
-    inPlay: false,
-    initialBet: false,
-    player: {
-        isBust: false,
-    },
-    house: {
-        isBust: false,
-    }
+const getGameState = () => {
+    return {
+        inPlay: false,
+        initialBet: false,
+        houseWins: false,
+        houseBust: false,
+        playerWins: false,
+        playerBust: false,
+        tie: false,
+        player: {
+            isBlackJack: false,
+        }
+    };
 }
 
-it('should render bust text when player bust', () => {
-    const tree = renderer.create(
-        <Gamebar 
-            state={{ ...gameState, player: { isBust: true }}} 
-        />
-    ).toJSON();
+it('should render Deal button undisabled when inPlay is false', () => {
+    const tree = renderer.create(<Gamebar state={getGameState()} />).toJSON();
     expect(tree).toMatchSnapshot();
 });
 
-  it('should render bust text when house bust', () => {
-    const tree = renderer.create(
-        <Gamebar 
-            state={{ ...gameState, inPlay: true, house: { isBust: true }}} 
-        />
-    ).toJSON();    
-    expect(tree).toMatchSnapshot();
+it("should return BLACKJACK! YOU WIN on player black jack & no tie", () => {
+    expect(getGameStateText({
+        ...getGameState(),
+        tie: false,
+        player: {
+            isBlackJack: true,
+        }
+    })).toBe("BLACKJACK! YOU WIN");
 });
 
-it('should render deal button when not in play', () => {
-    const tree = renderer.create(
-        <Gamebar 
-            state={{ ...gameState, inPlay: false }} 
-        />
-    ).toJSON();    
-    expect(tree).toMatchSnapshot();
+it("should return TIE when tie", () => {
+    expect(getGameStateText({ 
+        ...getGameState(),
+        tie: true 
+    })).toBe("TIE");
 });
 
-it('should only render bet button on inital bet', () => {
-    const tree = renderer.create(
-        <Gamebar 
-            state={{ ...gameState, inPlay: true, initalBet: true }} 
-        />
-    ).toJSON();    
-    expect(tree).toMatchSnapshot();
+it("should return DEAL CARDS when if not in play", () => {
+    expect(getGameStateText(getGameState())).toBe("DEAL CARDS");
 });
 
-it('should render all buttons when no players are bust, if a game is active and not an initial bet', () => {
-    const tree = renderer.create(<Gamebar state={{...gameState, inPlay: true }} />).toJSON();
-    expect(tree).toMatchSnapshot();
+it("should return YOU WENT BUST on player bust", () => {
+    expect(getGameStateText({ 
+        ...getGameState(),
+        playerBust: true 
+    })).toBe("YOU WENT BUST, DEAL CARDS");
 });
 
+it("should return HOUSE WENT BUST on house bust", () => {
+    expect(getGameStateText({ 
+        ...getGameState(),
+        houseBust: true 
+    })).toBe("THE HOUSE WENT BUST, DEAL CARDS");
+});
+
+it("should return YOU WON on player win", () => {
+    expect(getGameStateText({ 
+        ...getGameState(),
+        playerWins: true 
+    })).toBe("YOU WON, DEAL CARDS");
+});
+
+it("should return HOUSE WON on house win", () => {
+    expect(getGameStateText({ 
+        ...getGameState(),
+        houseWins: true 
+    })).toBe("THE HOUSE WON, DEAL CARDS");
+});
+
+it("should return MAKE A BET on inital bet", () => {
+    expect(getGameStateText({ 
+        ...getGameState(),
+        initialBet: true, 
+        inPlay: true,
+    })).toBe("MAKE A BET");
+});
+
+it("should return HIT, DOUBLE DOWN OR STAND", () => {
+    expect(getGameStateText({ 
+        ...getGameState(),
+        initialBet: false,
+        inPlay: true
+    })).toBe("HIT, DOUBLE DOWN OR STAND");
+});

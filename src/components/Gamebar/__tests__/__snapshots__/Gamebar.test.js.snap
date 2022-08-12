@@ -1,111 +1,109 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`should only render bet button on inital bet 1`] = `
-Array [
-  <button
-    className="text-center ml-1 mr-1 text-white bg-indigo-500 border-0 py-2 px-5 focus:outline-none hover:bg-indigo-600 rounded"
-  >
-    Bet
-  </button>,
-  <button
-    className="text-center ml-1 mr-1 text-white bg-indigo-500 border-0 py-2 px-5 focus:outline-none hover:bg-indigo-600 rounded"
-  >
-    Hit
-  </button>,
-  <button
-    className="text-center ml-1 mr-1 text-white bg-indigo-500 border-0 py-2 px-5 focus:outline-none hover:bg-indigo-600 rounded"
-  >
-    Stand
-  </button>,
-  <h1
-    className="text-white text-2xl px-8"
-  >
-    Bank: $
-  </h1>,
-  <h1
-    className="text-white text-2xl px-8"
-  >
-    Pot: $
-  </h1>,
-  <h1
-    className="text-white text-2xl px-8"
-  >
-    Player/House Score: 
-    /
-  </h1>,
-]
-`;
-
-exports[`should render all buttons when no players are bust, if a game is active and not an initial bet 1`] = `
-Array [
-  <button
-    className="text-center ml-1 mr-1 text-white bg-indigo-500 border-0 py-2 px-5 focus:outline-none hover:bg-indigo-600 rounded"
-  >
-    Bet
-  </button>,
-  <button
-    className="text-center ml-1 mr-1 text-white bg-indigo-500 border-0 py-2 px-5 focus:outline-none hover:bg-indigo-600 rounded"
-  >
-    Hit
-  </button>,
-  <button
-    className="text-center ml-1 mr-1 text-white bg-indigo-500 border-0 py-2 px-5 focus:outline-none hover:bg-indigo-600 rounded"
-  >
-    Stand
-  </button>,
-  <h1
-    className="text-white text-2xl px-8"
-  >
-    Bank: $
-  </h1>,
-  <h1
-    className="text-white text-2xl px-8"
-  >
-    Pot: $
-  </h1>,
-  <h1
-    className="text-white text-2xl px-8"
-  >
-    Player/House Score: 
-    /
-  </h1>,
-]
-`;
-
-exports[`should render bust text when house bust 1`] = `
-Array [
-  <h1
-    className="text-white text-2xl px-8"
-  >
-    HOUSE WENT BUST!
-  </h1>,
-  <button
-    className="text-center ml-1 mr-1 text-white bg-indigo-500 border-0 py-2 px-5 focus:outline-none hover:bg-indigo-600 rounded"
-  >
-    Deal
-  </button>,
-]
-`;
-
-exports[`should render bust text when player bust 1`] = `
-Array [
-  <h1
-    className="text-white text-2xl px-8"
-  >
-    YOU WENT BUST!
-  </h1>,
-  <button
-    className="text-center ml-1 mr-1 text-white bg-indigo-500 border-0 py-2 px-5 focus:outline-none hover:bg-indigo-600 rounded"
-  >
-    Deal
-  </button>,
-]
-`;
-
-exports[`should render deal button when not in play 1`] = `
-<button
-  className="text-center ml-1 mr-1 text-white bg-indigo-500 border-0 py-2 px-5 focus:outline-none hover:bg-indigo-600 rounded"
+exports[`should render Deal button undisabled when inPlay is false 1`] = `
+<div
+  className="flex flex-col"
 >
-  Deal
-</button>
+  <div
+    className="text-center w-full mb-2"
+  >
+    <h1
+      className="text-white text-2xl"
+    >
+      DEAL CARDS
+    </h1>
+  </div>
+  <div
+    className="flex justify-between"
+  >
+    <button
+      className="w-btn h-btn text-center text-gray-700 font-semibold bg-white border-white focus:outline-none hover:bg-gray-200 disabled:bg-gray-200"
+      disabled={false}
+      onClick={[Function]}
+    >
+      DEAL
+    </button>
+    <button
+      className="w-btn h-btn text-center text-gray-700 font-semibold bg-white border-white focus:outline-none hover:bg-gray-200 disabled:bg-gray-200"
+      disabled={false}
+      onClick={[Function]}
+    >
+      HIT
+    </button>
+    <button
+      className="w-btn h-btn text-center text-gray-700 font-semibold bg-white border-white focus:outline-none hover:bg-gray-200 disabled:bg-gray-200"
+      disabled={false}
+      onClick={[Function]}
+    >
+      DOUBLE DOWN
+    </button>
+    <button
+      className="w-btn h-btn text-center text-gray-700 font-semibold bg-white border-white focus:outline-none hover:bg-gray-200 disabled:bg-gray-200"
+      disabled={false}
+      onClick={[Function]}
+    >
+      STAND
+    </button>
+  </div>
+  <div
+    className="flex justify-evenly bg-gray-200 items-center"
+  >
+    <div
+      className="flex text-center flex-col"
+    >
+      <h1
+        className="text-gray-700 text-3xl font-semibold"
+      >
+        BET
+      </h1>
+      <h1
+        className="text-gray-700 text-xl font-semibold"
+      >
+        $
+      </h1>
+    </div>
+    <div
+      className="flex justify-center py-4 mt-2 px-2"
+    >
+      <img
+        alt="Chip 5 value"
+        className="ml-4 mr-4 w-16 h-16 cursor-pointer"
+        onClick={[Function]}
+        src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/1151732/chip-5.png"
+      />
+      <img
+        alt="Chip 10 value"
+        className="ml-4 mr-4 w-16 h-16 cursor-pointer"
+        onClick={[Function]}
+        src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/1151732/chip-7.png"
+      />
+      <img
+        alt="Chip 15 value"
+        className="ml-4 mr-4 w-16 h-16 cursor-pointer"
+        onClick={[Function]}
+        src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/1151732/chip-4.png"
+      />
+      <img
+        alt="Chip 50 value"
+        className="ml-4 mr-4 w-16 h-16 cursor-pointer"
+        onClick={[Function]}
+        src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/1151732/chip-3.png"
+      />
+    </div>
+    <div
+      className="flex text-center flex-col"
+    >
+      <h1
+        className="text-gray-700 text-3xl font-semibold"
+      >
+        CHIPS
+      </h1>
+      <h1
+        className="text-gray-700 text-xl font-semibold"
+      >
+        $
+      </h1>
+    </div>
+  </div>
+</div>
 `;
