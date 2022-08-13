@@ -2,37 +2,54 @@
 
 exports[`should render 1`] = `
 <div
-  className="bg-white px-3 shadow-xl ring-1 ring-gray-900/5 w-40 h-60 m-2 "
+  className="bg-white px-3 w-40 h-60 shadow-2xl rounded-lg sm:m-2"
 >
   <div
-    className="mx-auto "
+    className="flex flex-col justify-center"
+    style={
+      Object {
+        "backfaceVisibility": "hidden",
+      }
+    }
   >
     <div
-      className="flex flex-col w-full"
+      className=""
     >
-      <h1
-        className="text-4xl undefined"
-      />
-      <h1
-        className="text-4xl undefined"
-      />
-    </div>
-    <div
-      className="flex justify-center"
-    >
-      <h1
-        className="text-7xl undefined"
-      />
-    </div>
-    <div
-      className="flex flex-col w-full items-end"
-    >
-      <h1
-        className="text-4xl undefined"
-      />
-      <h1
-        className="text-4xl undefined"
-      />
+      <div
+        className="flex flex-col w-full items-start"
+      >
+        <div
+          className="flex flex-col items-center"
+        >
+          <h1
+            className="text-4xl undefined"
+          />
+          <h1
+            className="text-4xl undefined"
+          />
+        </div>
+      </div>
+      <div
+        className="flex justify-center"
+      >
+        <h1
+          className="text-7xl undefined"
+        />
+      </div>
+      <div
+        className="flex flex-col w-full items-end"
+      >
+        <div
+          className="flex flex-col items-center"
+        >
+          <h1
+            className="text-4xl undefined"
+          />
+          <h1
+            className="text-4xl undefined"
+          />
+        </div>
+      </div>
     </div>
   </div>
 </div>
@@ -40,37 +57,54 @@ exports[`should render 1`] = `
 
 exports[`should render with classNames 1`] = `
 <div
-  className="absolute mt-8 bg-white px-3 shadow-xl ring-1 ring-gray-900/5 w-40 h-60 m-2 "
+  className="bg-white px-3 w-40 h-60 shadow-2xl rounded-lg sm:m-2"
 >
   <div
-    className="mx-auto "
+    className="flex flex-col justify-center"
+    style={
+      Object {
+        "backfaceVisibility": "hidden",
+      }
+    }
   >
     <div
-      className="flex flex-col w-full"
+      className=""
     >
-      <h1
-        className="text-4xl undefined"
-      />
-      <h1
-        className="text-4xl undefined"
-      />
-    </div>
-    <div
-      className="flex justify-center"
-    >
-      <h1
-        className="text-7xl undefined"
-      />
-    </div>
-    <div
-      className="flex flex-col w-full items-end"
-    >
-      <h1
-        className="text-4xl undefined"
-      />
-      <h1
-        className="text-4xl undefined"
-      />
+      <div
+        className="flex flex-col w-full items-start"
+      >
+        <div
+          className="flex flex-col items-center"
+        >
+          <h1
+            className="text-4xl undefined"
+          />
+          <h1
+            className="text-4xl undefined"
+          />
+        </div>
+      </div>
+      <div
+        className="flex justify-center"
+      >
+        <h1
+          className="text-7xl undefined"
+        />
+      </div>
+      <div
+        className="flex flex-col w-full items-end"
+      >
+        <div
+          className="flex flex-col items-center"
+        >
+          <h1
+            className="text-4xl undefined"
+          />
+          <h1
+            className="text-4xl undefined"
+          />
+        </div>
+      </div>
     </div>
   </div>
 </div>
@@ -78,47 +112,64 @@ exports[`should render with classNames 1`] = `
 
 exports[`should render with text & colour 1`] = `
 <div
-  className="bg-white px-3 shadow-xl ring-1 ring-gray-900/5 w-40 h-60 m-2 "
+  className="bg-white px-3 w-40 h-60 shadow-2xl rounded-lg sm:m-2"
 >
   <div
-    className="mx-auto "
+    className="flex flex-col justify-center"
+    style={
+      Object {
+        "backfaceVisibility": "hidden",
+      }
+    }
   >
     <div
-      className="flex flex-col w-full"
+      className=""
     >
-      <h1
-        className="text-4xl text-rose-500"
+      <div
+        className="flex flex-col w-full items-start"
       >
-        test
-      </h1>
-      <h1
-        className="text-4xl text-rose-500"
+        <div
+          className="flex flex-col items-center"
+        >
+          <h1
+            className="text-4xl text-rose-500"
+          >
+            test
+          </h1>
+          <h1
+            className="text-4xl text-rose-500"
+          >
+            test
+          </h1>
+        </div>
+      </div>
+      <div
+        className="flex justify-center"
       >
-        test
-      </h1>
-    </div>
-    <div
-      className="flex justify-center"
-    >
-      <h1
-        className="text-7xl text-rose-500"
+        <h1
+          className="text-7xl text-rose-500"
+        >
+          test
+        </h1>
+      </div>
+      <div
+        className="flex flex-col w-full items-end"
       >
-        test
-      </h1>
-    </div>
-    <div
-      className="flex flex-col w-full items-end"
-    >
-      <h1
-        className="text-4xl text-rose-500"
-      >
-        test
-      </h1>
-      <h1
-        className="text-4xl text-rose-500"
-      >
-        test
-      </h1>
+        <div
+          className="flex flex-col items-center"
+        >
+          <h1
+            className="text-4xl text-rose-500"
+          >
+            test
+          </h1>
+          <h1
+            className="text-4xl text-rose-500"
+          >
+            test
+          </h1>
+        </div>
+      </div>
     </div>
   </div>
 </div>

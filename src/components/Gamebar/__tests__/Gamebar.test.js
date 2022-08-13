@@ -1,5 +1,6 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
+import { render, fireEvent, screen } from '@testing-library/react';
 import Gamebar, { getGameStateText } from '../Gamebar';
 
 const getGameState = () => {
@@ -17,19 +18,65 @@ const getGameState = () => {
     };
 }
 
+it('should call deal on deal button click', () => {
+    const mock = jest.fn();
+    render(<Gamebar deal={mock} state={getGameState()} />);
+    fireEvent.click(screen.getByText("DEAL"));
+    expect(mock).toHaveBeenCalled()
+});
+
+it('should call hit on hit button click', () => {
+    const mock = jest.fn();
+    render(<Gamebar hit={mock} state={getGameState()} />);
+    fireEvent.click(screen.getByText("HIT"));
+    expect(mock).toHaveBeenCalled()
+});
+
+it('should call doubleDown on doubleDown button click', () => {
+    const mock = jest.fn();
+    render(<Gamebar doubleDown={mock} state={getGameState()} />);
+    fireEvent.click(screen.getByText("DOUBLE DOWN"));
+    expect(mock).toHaveBeenCalled()
+});
+
+it('should call stand on stand button click', () => {
+    const mock = jest.fn();
+    render(<Gamebar stand={mock} state={getGameState()} />);
+    fireEvent.click(screen.getByText("STAND"));
+    expect(mock).toHaveBeenCalled()
+});
+
+it('should call reset on reset button click', () => {
+    const mock = jest.fn();
+    render(<Gamebar reset={mock} state={{ ...getGameState(), inPlay: true }} />);
+    fireEvent.click(screen.getByText("RESTART"));
+    expect(mock).toHaveBeenCalled()
+});
+
+it('should call bet on chip click when in play', () => {
+    const mock = jest.fn();
+    render(<Gamebar bet={mock} state={{ ...getGameState(), inPlay: true, initialBet: true }} />);
+    fireEvent.click(screen.getByAltText("Chip 5 value"));
+    expect(mock).toHaveBeenCalled()
+});
+
+it('should display confetti on player win', () => {
+    const tree = renderer.create(<Gamebar state={{ ...getGameState(), playerWins: true, house: { score: 0 }, player: { score: 21 } }} />).toJSON();
+    expect(tree).toMatchSnapshot();
+});
+
 it('should render Deal button undisabled when inPlay is false', () => {
     const tree = renderer.create(<Gamebar state={getGameState()} />).toJSON();
     expect(tree).toMatchSnapshot();
 });
 
-it("should return BLACKJACK! YOU WIN on player black jack & no tie", () => {
+it("should return PLAYER BLACKJACK! YOU WIN on player black jack & no tie", () => {
     expect(getGameStateText({
         ...getGameState(),
         tie: false,
-        player: {
-            isBlackJack: true,
-        }
-    })).toBe("BLACKJACK! YOU WIN");
+        blackJack: true,
+        playerWins: true,
+    })).toBe("PLAYER BLACKJACK! YOU WIN");
 });
 
 it("should return TIE when tie", () => {
@@ -37,6 +84,23 @@ it("should return TIE when tie", () => {
         ...getGameState(),
         tie: true 
     })).toBe("TIE");
+});
+
+it("should return TIE when both players have a black jack", () => {
+    expect(getGameStateText({ 
+        ...getGameState(),
+        blackJack: true,
+        tie: true 
+    })).toBe("TIE, BOTH THE HOUSE AND PLAYER HAVE A BLACK JACK!");
+});
+
+it("should return HOUSE BLACKJACK when house has a blackjack", () => {
+    expect(getGameStateText({ 
+        ...getGameState(),
+        inPlay: true,
+        blackJack: true,
+        houseWins: true,
+    })).toBe("HOUSE BLACKJACK! YOU LOSE");
 });
 
 it("should return DEAL CARDS when if not in play", () => {

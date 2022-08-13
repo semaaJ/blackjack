@@ -4,6 +4,7 @@ import renderer from 'react-test-renderer';
 
 const cards = [
     { rank: "K", symbol: "K", colour:"text-rose-500"}, 
+    { rank: "K", symbol: "K", colour:"text-rose-500"},
     { rank: "K", symbol: "K", colour:"text-rose-500"}
 ];
 

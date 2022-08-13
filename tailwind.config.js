@@ -4,10 +4,14 @@ module.exports = {
   theme: {
     extend: {
       width: {
-        "btn": "150px"
+        "btn": "150px",
+        "btn-small": "75px"
       },
       height: {
-        "btn": "45px"
+        "btn": "45px",
+      },
+      fontFamily: {
+        roboto: ["Roboto"]
       }
     },
   },

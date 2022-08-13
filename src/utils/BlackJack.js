@@ -14,10 +14,12 @@ export const GAME_STATE = {
     initialBet: true,
     pot: 0,
     tie: false,
+    // lets make this cleaner
     houseWins: false,
     playerWins: false,
     houseBust: false,
     playerBust: false,
+    blackJack: false,
     player: {
         canSplit: false,
         cards: [],
@@ -62,41 +64,38 @@ export const initialiseGame = () => {
             ...GAME_STATE.house,
             deck: shuffleDeck(createDeck())
         },
-        player: {
-            ...GAME_STATE.player,
-        }
     }
-}
-
-export const startGame = (state) => {
-    const dealState = dealRound(state);
-    return {
-        ...dealState,
-        inPlay: true
-    }
-}
+} 
 
 export const dealRound = (state) => {
-    const { player, house } = state;
+    let mutatedState = Object.assign({}, state);    
+    if (state.house.deck.length < 4) {
+        mutatedState = resetDeck(mutatedState);
+    }
+
+    const { house, player } = mutatedState;
+
     const playerCards = [house.deck.pop(), house.deck.pop()];
     const houseCards = [house.deck.pop(), house.deck.pop()];
 
     const playerScore = calculateScore(playerCards);
     const houseScore = calculateScore(houseCards);
 
-    console.log(playerScore, houseScore)
-
     if (isBlackJack(playerCards)) {
         const houseBlackJack = isBlackJack(houseCards);
 
         return makeMove({
             ...state,
+            inPlay: true,
+            //
             houseWins: false,
             playerWins: false,
             houseBust: false,
             playerBust: false,
             showSecond: false,
             tie: false,
+            blackJack: true,
+            //
             player: {
                 ...player,
                 isBlackJack: true,
@@ -116,12 +115,16 @@ export const dealRound = (state) => {
 
     return {
         ...state,
+        //
+        inPlay: true,
         houseWins: false,
         playerWins: false,
         houseBust: false,
         playerBust: false,
         showSecond: false,
         tie: false,
+        blackJack: false,
+        //
         player: {
             ...player,
             cards: playerCards,
@@ -151,8 +154,23 @@ export const playerBet = (state, bet) => {
 
 export const playerStand = (state) => makeMove(state, 'stand');
 
+export const resetDeck = (state) => {
+    return {
+        ...state,
+        house: {
+            ...state.house,
+            deck: shuffleDeck(createDeck())
+        }
+    }
+}
+
 export const playerHit = (state) => {
-    const { house, player } = state;
+    let mutatedState = Object.assign({}, state);    
+    if (state.house.deck.length < 4) {
+        mutatedState = resetDeck(mutatedState);
+    }
+
+    const { house, player } = mutatedState;
     const cards = [...player.cards, house.deck.pop()];
     const score = calculateScore(cards);
 
@@ -181,6 +199,148 @@ export const playerDoubleDown = (state) => {
     }
 }
 
+export const makeMove = (state, type) => {
+    const { pot, player, house } = state;
+
+    switch(type) {
+        case("blackjack"):
+            // if the house also has a blackjack split the pot
+            if (state.house.isBlackJack) {
+                return {
+                    ...state,
+                    pot: 0,
+                    tie: true,
+                    initialBet: true,
+                    inPlay: false,
+                    player: {
+                        ...player,
+                        bank: player.bank + (pot / 2),
+                        isBlackJack: false
+                    },
+                }
+            }
+            // otherwise pay out 1.5x the wager
+            return {
+                ...state,
+                pot: 0,
+                playerWins: true,    
+                initialBet: true,    
+                inPlay: false,           
+                player: {
+                    ...player,
+                    bank: player.bank + (state.pot * 1.5),
+                    isBlackJack: false 
+                },
+            }
+        case("stand"):
+            let houseCards = [];
+            // if the dealer is less than 17, take additional hit card
+            if (house.score < 17 && house.cards.length === 2) {
+                houseCards = [...house.cards, house.deck.pop()];
+            } else {
+                houseCards = house.cards;
+            }
+            const houseScore = calculateScore(houseCards);
+
+            // if house busts, pay 1 times player's wager
+            if (isBust(houseScore)) {
+                return {
+                    ...state,
+                    pot: 0,
+                    initialBet: true,
+                    showSecond: true,
+                    playerWins: true,
+                    houseBust: true,
+                    inPlay: false,
+                    player: {
+                        ...player,
+                        bank: player.bank + (pot * 2) 
+                    },
+                    house: {
+                        ...house,
+                        cards: houseCards,
+                        score: houseScore
+                    }
+                }
+            } 
+        
+            // player wins
+            if (21 - player.score < 21 - houseScore) {
+                return {
+                    ...state,
+                    pot: 0,
+                    initialBet: true,
+                    showSecond: true,
+                    playerWins: true,
+                    houseWins: false,
+                    inPlay: false,
+                    player: {
+                        ...player,
+                        bank: player.bank + (pot * 2) 
+                    },
+                    house: {
+                        ...state.house,
+                        cards: houseCards,
+                        score: houseScore
+                    }
+                }
+            } else if (player.score === houseScore) {
+                return {
+                    ...state,
+                    pot: 0,
+                    initialBet: true,
+                    showSecond: true,
+                    tie: true,
+                    inPlay: false,
+                    player: {
+                        ...player,
+                        bank: player.bank + (pot /2) 
+                    },
+                    house: {
+                        ...house,
+                        cards: houseCards,
+                        score: houseScore
+                    }
+                }
+            } 
+           // house wins
+            return {
+                ...state,
+                pot: 0,
+                showSecond: true,
+                houseWins: true,
+                initialBet: true,
+                inPlay: false,
+                player: {
+                    ...player,
+                    bank: player.bank - pot
+                },
+                house: {
+                    ...house,
+                    cards: houseCards,
+                    score: houseScore
+                }
+            }
+
+        case("hit"):
+            if (isBust(player.score)) {
+                return {
+                    ...state,
+                    pot: 0,
+                    playerBust: true,
+                    houseWins: true,
+                    showSecond: true,
+                    initialBet: true,
+                    inPlay: false,
+                    player: {
+                        ...player,
+                        bank: player.bank - state.pot
+                    }
+                }
+            }
+        return state;
+}}
+
 export const calculateScore = (cards) => {
     let aces = 0;
     let total = cards.reduce((total, card) => {
@@ -206,173 +366,6 @@ export const isBlackJack = (cards) => {
 }
 
 export const isBust = (score) => score > 21;
-
-export const makeMove = (state, type) => {
-    const { pot, player, house } = state;
-
-    switch(type) {
-        case("blackjack"):
-            // if the house also has a blackjack split the pot
-            if (state.house.isBlackJack) {
-                return {
-                    ...state,
-                    pot: 0,
-                    tie: true,
-                    initialBet: true,
-                    player: {
-                        ...player,
-                        bank: player.bank + (pot / 2),
-                    },
-                }
-            }
-            // otherwise pay out 1.5x the wager
-            return {
-                ...state,
-                pot: 0,
-                initialBet: true,
-                playerWins: true,
-                player: {
-                    ...player,
-                    bank: player.bank + (state.pot * 1.5) 
-                },
-            }
-        case("stand"):
-            let houseCards = [];
-            // if the dealer is less than 17, take additional hit card
-            if (house.score < 17) {
-                houseCards = [...house.cards, house.deck.pop()];
-            } else {
-                houseCards = house.cards;
-            }
-            const houseScore = calculateScore(houseCards);
-
-            // if house busts, pay 1 times player's wager
-            if (isBust(houseScore)) {
-                return {
-                    ...state,
-                    pot: 0,
-                    initialBet: true,
-                    showSecond: true,
-                    playerWins: true,
-                    houseBust: true,
-                    inPlay: false,
-                    player: {
-                        ...player,
-                        bank: player.bank + (pot * 2) 
-                    },
-                    house: {
-                        ...house,
-                        cards: houseCards
-                    }
-                }
-            } 
-        
-            // player wins
-            if (21 - player.score < 21 - houseScore) {
-                return {
-                    ...state,
-                    pot: 0,
-                    initialBet: true,
-                    showSecond: true,
-                    playerWins: true,
-                    inPlay: false,
-                    player: {
-                        ...player,
-                        bank: player.bank + (pot * 2) 
-                    },
-                    house: {
-                        ...state.house,
-                        cards: houseCards
-                    }
-                }
-            } else if (player.score === houseScore) {
-                return {
-                    ...state,
-                    pot: 0,
-                    initialBet: true,
-                    showSecond: true,
-                    tie: true,
-                    inPlay: false,
-                    player: {
-                        ...player,
-                        bank: player.bank + (pot /2) 
-                    },
-                    house: {
-                        ...house,
-                        cards: houseCards
-                    }
-                }
-            } 
-           // house wins
-            return {
-                ...state,
-                pot: 0,
-                showSecond: true,
-                houseWins: true,
-                initialBet: true,
-                inPlay: false,
-                player: {
-                    ...player,
-                    bank: player.bank - pot
-                },
-                house: {
-                    ...house,
-                    cards: houseCards
-                }
-            }
-
-        case("hit"):
-            if (isBust(player.score)) {
-                return {
-                    ...state,
-                    pot: 0,
-                    playerBust: true,
-                    houseWins: true,
-                    showSecond: true,
-                    initialBet: true,
-                    inPlay: false,
-                    player: {
-                        ...player,
-                        bank: player.bank - state.pot
-                    }
-                }
-            }
-        return state;
-}}
-
-export const clearCards = (state) => {
-    const { house, player } = state;
-    return {
-        ...state,
-        house: {
-            ...house,
-            deck: [...house.cards, ...player.cards, ...house.deck],
-            cards: []
-        },
-        player: {
-            ...player,
-            cards: []
-        }
-    }
-}
-
-export const nextHand = (state) => {
-    const cleared = clearCards(state);
-    return dealRound({
-        ...cleared,
-        initialBet: false,
-        player: {
-            ...cleared.player,
-            isWin: false,
-            isBust: false,
-        },
-        house: {
-            ...cleared.house,
-            isWin: false,
-            isBust: false
-        }
-    });
-}
 
 export const showSecondCard = (state) => {
     return {
