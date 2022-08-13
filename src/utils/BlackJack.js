@@ -19,6 +19,7 @@ export const GAME_STATE = {
     playerWins: false,
     houseBust: false,
     playerBust: false,
+    blackJack: false,
     player: {
         canSplit: false,
         cards: [],
@@ -93,6 +94,7 @@ export const dealRound = (state) => {
             playerBust: false,
             showSecond: false,
             tie: false,
+            blackJack: true,
             //
             player: {
                 ...player,
@@ -121,6 +123,7 @@ export const dealRound = (state) => {
         playerBust: false,
         showSecond: false,
         tie: false,
+        blackJack: false,
         //
         player: {
             ...player,
@@ -212,6 +215,7 @@ export const makeMove = (state, type) => {
                     player: {
                         ...player,
                         bank: player.bank + (pot / 2),
+                        isBlackJack: false
                     },
                 }
             }
@@ -224,13 +228,14 @@ export const makeMove = (state, type) => {
                 inPlay: false,           
                 player: {
                     ...player,
-                    bank: player.bank + (state.pot * 1.5) 
+                    bank: player.bank + (state.pot * 1.5),
+                    isBlackJack: false 
                 },
             }
         case("stand"):
             let houseCards = [];
             // if the dealer is less than 17, take additional hit card
-            if (house.score < 17) {
+            if (house.score < 17 && house.cards.length === 2) {
                 houseCards = [...house.cards, house.deck.pop()];
             } else {
                 houseCards = house.cards;
@@ -253,7 +258,8 @@ export const makeMove = (state, type) => {
                     },
                     house: {
                         ...house,
-                        cards: houseCards
+                        cards: houseCards,
+                        score: houseScore
                     }
                 }
             } 
@@ -266,6 +272,7 @@ export const makeMove = (state, type) => {
                     initialBet: true,
                     showSecond: true,
                     playerWins: true,
+                    houseWins: false,
                     inPlay: false,
                     player: {
                         ...player,
@@ -273,7 +280,8 @@ export const makeMove = (state, type) => {
                     },
                     house: {
                         ...state.house,
-                        cards: houseCards
+                        cards: houseCards,
+                        score: houseScore
                     }
                 }
             } else if (player.score === houseScore) {
@@ -290,7 +298,8 @@ export const makeMove = (state, type) => {
                     },
                     house: {
                         ...house,
-                        cards: houseCards
+                        cards: houseCards,
+                        score: houseScore
                     }
                 }
             } 
@@ -308,7 +317,8 @@ export const makeMove = (state, type) => {
                 },
                 house: {
                     ...house,
-                    cards: houseCards
+                    cards: houseCards,
+                    score: houseScore
                 }
             }
 

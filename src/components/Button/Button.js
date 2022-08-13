@@ -12,8 +12,8 @@ const Button = (props) => {
     const { id, icon, text, disabled, onClick } = props;
     return (
         <button 
-            disabled={disabled}
             id={id}
+            disabled={disabled}
             onClick={onClick} 
             className="w-btn-small h-btn text-center text-gray-700 text-sm bg-white border-white 
                 sm:w-full sm:font-semibold sm:text-lg hover:bg-gray-200 disabled:bg-gray-200">

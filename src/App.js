@@ -9,14 +9,17 @@ export const renderHouseCards = (cards, showSecond) => {
   return cards.length > 0 ? (
     <>
       { <Card rank={cards[0].rank} symbol={cards[0].symbol} colour={cards[0].colour} /> }
-      { showSecond && cards.map(c => <Card rank={c.rank} symbol={c.symbol} clour={c.colour} />) }
-      { !showSecond && Array.from(Array(2).keys()).map(i => <div className="bg-slate-500 px-3 w-40 h-60 shadow-xl rounded-lg sm:m-2" /> ) }
-
+      { showSecond ? 
+          <Card rank={cards[1].rank} symbol={cards[1].symbol} clour={cards[1].colour} /> : 
+          <div className="bg-slate-500 px-3 w-40 h-60 shadow-xl rounded-lg sm:m-2" /> 
+      }
+      { showSecond && cards.length === 3 ? 
+          <Card rank={cards[2].rank} symbol={cards[2].symbol} clour={cards[2].colour} /> :
+          <div className="bg-slate-500 px-3 w-40 h-60 shadow-xl rounded-lg sm:m-2" />
+      }
     </>
   ) : (
-    Array.from(Array(3).keys()).map(i => <div className="bg-slate-500 px-3 w-40 h-60 shadow-xl rounded-lg sm:m-2">
-
-    </div> )
+    Array.from(Array(3).keys()).map(i => <div className="bg-slate-500 px-3 w-40 h-60 shadow-xl rounded-lg sm:m-2" />)
   ) 
 }
 
@@ -42,6 +45,8 @@ export const reset = (setState) => setState(initialiseGame());
 
 function App() {
   const [state, setState] = useState(initialiseGame());
+
+  console.log(state);
 
   return (
       <div className="w-screen overflow-x-hidden h-screen flex flex-col items-center bg-green-800 font-roboto">

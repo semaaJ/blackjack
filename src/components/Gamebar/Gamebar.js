@@ -11,8 +11,12 @@ export const CHIPS = [
 
 // this can certainly be better
 export const getGameStateText = (state) => {
-    if (state.player.isBlackJack && !state.tie) {
-        return "BLACKJACK! YOU WIN"
+    if (state.blackJack && state.playerWins) {
+        return "PLAYER BLACKJACK! YOU WIN"
+    } else if (state.blackJack && state.tie) {
+        return "TIE, BOTH THE HOUSE AND PLAYER HAVE A BLACK JACK!"
+    } else if (state.blackJack && state.houseWins) {
+        return "HOUSE BLACKJACK! YOU LOSE"
     } else if (state.tie) {
         return "TIE"
     } if (state.playerBust || state.houseBust) {
@@ -43,10 +47,11 @@ const Gamebar = (props) => {
     const disabled = state.initialBet || state.houseWins || state.playerWins;
     
     return (
-        <div className="flex flex-col bg-white shadow-xl rounded-2xl sm: w-full">
+        <div className="flex flex-col bg-white shadow-xl rounded-2xl border-4  border-white sm: w-full">
             {
                 state.playerWins && (
                     <Confetti
+                        aria-label='confetti'
                         width={width}
                         height={height}
                         numberOfPieces={50}
@@ -59,16 +64,16 @@ const Gamebar = (props) => {
             </div>
 
             <div className="flex justify-between">
-                <Button icon={0} text="DEAL" disabled={state.inPlay} onClick={() => deal(state, setState)}  />
-                <Button icon={1} text="HIT" disabled={disabled} onClick={() => hit(state, setState)}  />
-                <Button icon={2} text="DOUBLE DOWN"  disabled={disabled} onClick={() => doubleDown(state, setState)} />
-                <Button icon={3} text="STAND"  disabled={disabled} onClick={() => stand(state, setState)} />
-                <Button icon={4} text="RESTART" disabled={!state.inPlay} onClick={() => reset(setState)} />
+                <Button id="deal" icon={0} text="DEAL" disabled={state.inPlay} onClick={() => deal(state, setState)}  />
+                <Button id="hit" icon={1} text="HIT" disabled={disabled} onClick={() => hit(state, setState)}  />
+                <Button id="doubleDown" icon={2} text="DOUBLE DOWN"  disabled={disabled} onClick={() => doubleDown(state, setState)} />
+                <Button id="stand" icon={3} text="STAND"  disabled={disabled} onClick={() => stand(state, setState)} />
+                <Button id="restart" icon={4} text="RESTART" disabled={!state.inPlay} onClick={() => reset(setState)} />
             </div>
 
             <div className="flex bg-gray-200 justify-center">
-                <h1 className="bg-gray-200 text-gray-900 text-center text-lg ">SCORE: { state.player.score }</h1>
-                <h1 className="bg-gray-200 ml-20 text-gray-900 text-center text-lg ">HOUSE: { state.houseWins || state.playerWins  ? state.house.score : "?" }</h1>
+                <h1 className="bg-gray-200 text-gray-900 text-center text-lg mt-1">SCORE: { state.player.score }</h1>
+                <h1 className="bg-gray-200 ml-20 text-gray-900 text-center text-lg mt-1">HOUSE: { state.houseWins || state.playerWins  ? state.house.score : "?" }</h1>
 
             </div>
 
@@ -82,9 +87,10 @@ const Gamebar = (props) => {
                     { CHIPS.map((chip, i) => (
                             <img 
                                 className={`${ !state.inPlay ? "sm:ml-4 sm:mr-4 w-12 h-12 sm:w-16 sm:h-16 grayscale" :
-                                            "sm:ml-4 sm:mr-4 w-12 h-12 sm:w-16 sm:h-16 cursor-pointer"}`}
+                                            "sm:ml-4 sm:mr-4 w-12 h-12 sm:w-16 sm:h-16 cursor-pointer hover:scale-110"}`}
                                 key={i} 
-                                src={chip.imageUrl} alt={chip.alt} 
+                                src={chip.imageUrl}
+                                alt={chip.alt} 
                                 onClick={() => state.inPlay && bet(state, setState, chip.value)}
                             />
                         )) 
