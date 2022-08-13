@@ -1,4 +1,6 @@
 import Button from '../Button/Button';
+import { useWindowSize } from 'react-use';
+import Confetti from 'react-confetti'
 
 export const CHIPS = [
     { "value": 5, imageUrl: "https://s3-us-west-2.amazonaws.com/s.cdpn.io/1151732/chip-5.png", alt: "Chip 5 value" },
@@ -7,6 +9,7 @@ export const CHIPS = [
     { "value": 50, imageUrl: "https://s3-us-west-2.amazonaws.com/s.cdpn.io/1151732/chip-3.png", alt: "Chip 50 value" }
 ]
 
+// this can certainly be better
 export const getGameStateText = (state) => {
     if (state.player.isBlackJack && !state.tie) {
         return "BLACKJACK! YOU WIN"
@@ -26,37 +29,71 @@ export const getGameStateText = (state) => {
 }
 
 const Gamebar = (props) => {
-    const { next, bet, hit, stand, doubleDown, state, setState } = props;
+    const { 
+        state, 
+        setState,
+        deal, 
+        bet, 
+        hit, 
+        reset, 
+        stand, 
+        doubleDown 
+    } = props;
+    const { width, height } = useWindowSize();
     const disabled = state.initialBet || state.houseWins || state.playerWins;
     
     return (
-        <div className="flex flex-col">
-            <div className="text-center w-full mb-2">
-                <h1 className="text-white text-2xl">{ getGameStateText(state) }</h1>
+        <div className="flex flex-col bg-white shadow-xl rounded-2xl sm: w-full">
+            {
+                state.playerWins && (
+                    <Confetti
+                        width={width}
+                        height={height}
+                        numberOfPieces={50}
+                    />
+                )
+            }
+            
+            <div className="text-center w-full mb-2 mt-2">
+                <h1 className="text-gray-600 font-bold text-2xl">{ getGameStateText(state) }</h1>
             </div>
 
             <div className="flex justify-between">
-                <Button text="DEAL" disabled={state.inPlay} onClick={() => next(state, setState)}  />
-                <Button text="HIT" disabled={disabled} onClick={() => hit(state, setState)}  />
-                <Button text="DOUBLE DOWN"  disabled={disabled} onClick={() => doubleDown(state, setState)} />
-                <Button text="STAND"  disabled={disabled} onClick={() => stand(state, setState)} />
+                <Button icon={0} text="DEAL" disabled={state.inPlay} onClick={() => deal(state, setState)}  />
+                <Button icon={1} text="HIT" disabled={disabled} onClick={() => hit(state, setState)}  />
+                <Button icon={2} text="DOUBLE DOWN"  disabled={disabled} onClick={() => doubleDown(state, setState)} />
+                <Button icon={3} text="STAND"  disabled={disabled} onClick={() => stand(state, setState)} />
+                <Button icon={4} text="RESTART" disabled={!state.inPlay} onClick={() => reset(setState)} />
             </div>
 
-            <div className="flex justify-evenly bg-gray-200 items-center">
+            <div className="flex bg-gray-200 justify-center">
+                <h1 className="bg-gray-200 text-gray-900 text-center text-lg ">SCORE: { state.player.score }</h1>
+                <h1 className="bg-gray-200 ml-20 text-gray-900 text-center text-lg ">HOUSE: { state.houseWins || state.playerWins  ? state.house.score : "?" }</h1>
+
+            </div>
+
+            <div className="flex justify-evenly bg-gray-200 items-center rounded-bl-2xl rounded-br-2xl">
                 <div className="flex text-center flex-col">
-                    <h1 className="text-gray-700 text-3xl font-semibold">BET</h1>
-                    <h1 className="text-gray-700 text-xl font-semibold">${ state.pot }</h1>
+                    <h1 className="text-gray-700 text-lg sm:text-2xl sm:font-bold">BET</h1>
+                    <h1 className="text-gray-700 text-lg sm:text-xl sm:font-bold">${ state.pot }</h1>
                 </div>
 
-                <div className="flex justify-center py-4 mt-2 px-2">
+                <div className="flex justify-center py-4">
                     { CHIPS.map((chip, i) => (
-                        <img key={i} className="ml-4 mr-4 w-16 h-16 cursor-pointer" src={chip.imageUrl} alt={chip.alt} onClick={() => bet(state, setState, chip.value)} />
-                    )) }
+                            <img 
+                                className={`${ !state.inPlay ? "sm:ml-4 sm:mr-4 w-12 h-12 sm:w-16 sm:h-16 grayscale" :
+                                            "sm:ml-4 sm:mr-4 w-12 h-12 sm:w-16 sm:h-16 cursor-pointer"}`}
+                                key={i} 
+                                src={chip.imageUrl} alt={chip.alt} 
+                                onClick={() => state.inPlay && bet(state, setState, chip.value)}
+                            />
+                        )) 
+                    }
                 </div>
 
                 <div className="flex text-center flex-col">
-                    <h1 className="text-gray-700 text-3xl font-semibold">CHIPS</h1>
-                    <h1 className="text-gray-700 text-xl font-semibold">${ state.player.bank }</h1>
+                    <h1 className="text-gray-700 text-lg sm:text-2xl sm:font-bold">CHIPS</h1>
+                    <h1 className="text-gray-700 text-lg sm:text-xl sm:font-bold">${ state.player.bank }</h1>
                 </div>
             </div>
         </div>
