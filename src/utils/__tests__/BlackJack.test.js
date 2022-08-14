@@ -3,7 +3,6 @@ import {
     GAME_STATE, 
     createDeck, 
     shuffleDeck, 
-    startGame,
     dealRound,
     playerBet, 
     playerHit, 
@@ -12,8 +11,7 @@ import {
     isBlackJack,
     isBust,
     makeMove,
-    clearCards,
-    nextHand,
+    resetDeck,
     showSecondCard,
     playerDoubleDown
 } from '../BlackJack';
@@ -54,6 +52,12 @@ it("should create the deck succesfully", () => {
     expect(count.club).toBe(13);
 });
 
+it("should reset the deck", () => {
+    const state = createGameState();
+    const resetState = resetDeck(state);
+    expect(isEqual(state, resetState)).toBe(false);
+});
+
 it("should shuffle the deck", () => {
     const deck = createDeck();
     const clone = Object.assign({}, deck);
@@ -61,11 +65,6 @@ it("should shuffle the deck", () => {
     expect(isEqual(deck, clone)).toBe(false);
 });
 
-it("should start the game", () => {
-    const state = createGameState();
-    const start = startGame(state);
-    expect(start.inPlay).toBe(true);
-});
 
 it("should deal two cards to the house and player on dealers round", () => {
     const state = createGameState();
@@ -85,6 +84,18 @@ it("should allow the player to hit", () => {
     const state = createGameState();
     const hitState = playerHit(state);
     expect(hitState.player.cards.length).toBe(1);
+});
+
+it("should allow the player to hit and reset deck if < 4", () => {
+    const state = createGameState();
+    const hitState = playerHit({
+        ...state,
+        house: {
+            ...state.house,
+            deck: [{}, {}, {}]
+        }
+    });
+    expect(hitState.house.deck.length).toBe(51);
 });
 
 it("should calculate basic score", () => {
@@ -129,55 +140,11 @@ it("should return true when a player's score is > 21", () => expect(isBust(25)).
 
 it("should return false when a player's score is > 21", () => expect(isBust(1)).toBe(false));
 
-it("should remove the cards from house/players hands and place at the bottom of the deck", () => {
-    const state = createGameState();
-    const cleared = clearCards({
-        ...state,
-        house: {
-            ...state.house,
-            deck: state.house.deck.slice(0, state.house.deck.length - 5),
-            cards: [{ rank: "A"}, { rank: "K"}, { rank: "3"}]
-        },
-        player: {
-            ...state.player,
-            cards: [{ rank: "A"}, { rank: "K"}]
-        },
-    });
-    expect(cleared.house.deck.length).toBe(52);
-    expect(cleared.house.cards.length).toBe(0);
-    expect(cleared.player.cards.length).toBe(0);
-});
-
 it("should set showSecond to true", () => {
     const state = createGameState();
     expect(state.house.showSecond).toBe(false);
     const second = showSecondCard(state);
     expect(second.house.showSecond).toBe(true);
-});
-
-it("should give players new cards & set win variables to false", () => {
-    const state = createGameState();
-    const next = nextHand({
-        ...state,
-        initialBet: true,
-        house: {
-            ...state.house,
-            isWin: false,
-            isBust: true,
-            cards: [{ rank: "A"}, { rank: "2"}, { rank: "2"}]
-        },
-        player: {
-            ...state.player,
-            isWin: true,
-            isBust: false,
-            cards: [{ rank: "A"}, { rank: "3"}, { rank: "2"}]
-        },
-    });
-    expect(next.house.cards.length).toBe(2);
-    expect(next.player.cards.length).toBe(2);
-    expect(next.initialBet).toBe(true);
-    expect(next.house.isBust).toBe(false);
-    expect(next.player.isWin).toBe(false);
 });
 
 it("should allow a player to win on stand if house bust", () => {
@@ -317,8 +284,19 @@ it("should return state on dealRound when not BlackJack", () => {
             deck: [{ rank: "1"}, { rank: "2" }, { rank: "2" }, { rank: "2" }]
         }
     });
-    console.log(drState);
     expect(drState.player.isBlackJack).toBe(false);
+});
+
+it("should reset deck if deck < 4 on dealRound ", () => {
+    const state = createGameState();
+    const hitState = dealRound({
+        ...state,
+        house: {
+            ...state.house,
+            deck: [{}, {}, {}]
+        }
+    });
+    expect(hitState.house.deck.length).toBe(48);
 });
 
 it("should return 1.5 wager when player blackjack", () => {
