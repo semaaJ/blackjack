@@ -11,25 +11,26 @@ export const CHIPS = [
 
 // this can certainly be better
 export const getGameStateText = (state) => {
-    if (state.blackJack && state.playerWins) {
-        return "PLAYER BLACKJACK! YOU WIN"
-    } else if (state.blackJack && state.tie) {
-        return "TIE, BOTH THE HOUSE AND PLAYER HAVE A BLACK JACK!"
-    } else if (state.blackJack && state.houseWins) {
-        return "HOUSE BLACKJACK! YOU LOSE"
+    if (state.blackJack) {
+        if (state.playerWins) {
+            return "PLAYER BLACKJACK! YOU WIN";
+        } else if (state.houseWins) {
+            return "HOUSE BLACKJACK! YOU LOSE";
+        } else {
+            return "TIE, BOTH THE HOUSE AND PLAYER HAVE A BLACK JACK!";
+        }
     } else if (state.tie) {
         return "TIE"
-    } if (state.playerBust || state.houseBust) {
+    } else if (state.playerBust || state.houseBust) {
         return state.playerBust ? "YOU WENT BUST, DEAL CARDS" : "THE HOUSE WENT BUST, DEAL CARDS";
     } else if (state.playerWins || state.houseWins) {
         return state.playerWins ? "YOU WON, DEAL CARDS" : "THE HOUSE WON, DEAL CARDS";
     } else if (!state.inPlay) {
-        return "DEAL CARDS"
+        return "DEAL CARDS";
     } else if (state.initialBet && state.inPlay) {
-        return "MAKE A BET"
-    } else {
-        return "HIT, DOUBLE DOWN OR STAND"
-    }
+        return "MAKE A BET";
+    } 
+    return "HIT, DOUBLE DOWN OR STAND"
 }
 
 const Gamebar = (props) => {
@@ -44,10 +45,10 @@ const Gamebar = (props) => {
         doubleDown 
     } = props;
     const { width, height } = useWindowSize();
-    const disabled = state.initialBet || state.houseWins || state.playerWins;
+    const disabled = state.initialBet || state.houseWins || state.playerWins || state.player.bank < 5;
     
     return (
-        <div className="flex flex-col bg-white shadow-xl rounded-2xl border-4  border-white sm: w-full">
+        <div className="flex flex-col bg-white shadow-xl sm:rounded-2xl border-4  border-white sm: w-full">
             {
                 state.playerWins && (
                     <Confetti
@@ -74,7 +75,6 @@ const Gamebar = (props) => {
             <div className="flex bg-gray-200 justify-center">
                 <h1 className="bg-gray-200 text-gray-900 text-center text-lg mt-1">SCORE: { state.player.score }</h1>
                 <h1 className="bg-gray-200 ml-20 text-gray-900 text-center text-lg mt-1">HOUSE: { state.houseWins || state.playerWins  ? state.house.score : "?" }</h1>
-
             </div>
 
             <div className="flex justify-evenly bg-gray-200 items-center rounded-bl-2xl rounded-br-2xl">
