@@ -2,7 +2,7 @@
 
 exports[`should display confetti on player win 1`] = `
 <div
-  className="flex flex-col bg-white shadow-xl rounded-2xl border-4  border-white sm: w-full"
+  className="flex flex-col bg-white shadow-xl sm:rounded-2xl border-4  border-white sm: w-full"
 >
   <canvas
     aria-label="confetti"
@@ -33,19 +33,19 @@ exports[`should display confetti on player win 1`] = `
     className="flex justify-between"
   >
     <button
-      className="w-btn-small h-btn text-center text-gray-700 text-sm bg-white border-white 
+      className="w-btn-small sm:h-btn text-center text-gray-700 text-sm bg-white border-white 
  sm:w-full sm:font-semibold sm:text-lg hover:bg-gray-200 disabled:bg-gray-200"
       disabled={false}
       id="deal"
       onClick={[Function]}
     >
       <div
-        className="flex items-center justify-center"
+        className="flex flex-col flex-col-reverse items-center justify-center sm:flex-row "
       >
         DEAL
         <svg
           aria-hidden="true"
-          className="ml-2 h-5 w-5 text-gray-500"
+          className="w-5 text-gray-500 sm:flex-row ml-2"
           fill="currentColor"
           viewBox="0 0 20 20"
           xmlns="http://www.w3.org/2000/svg"
@@ -59,19 +59,19 @@ exports[`should display confetti on player win 1`] = `
       </div>
     </button>
     <button
-      className="w-btn-small h-btn text-center text-gray-700 text-sm bg-white border-white 
+      className="w-btn-small sm:h-btn text-center text-gray-700 text-sm bg-white border-white 
  sm:w-full sm:font-semibold sm:text-lg hover:bg-gray-200 disabled:bg-gray-200"
       disabled={true}
       id="hit"
       onClick={[Function]}
     >
       <div
-        className="flex items-center justify-center"
+        className="flex flex-col flex-col-reverse items-center justify-center sm:flex-row "
       >
         HIT
         <svg
           aria-hidden="true"
-          className="ml-2 h-5 w-5 text-gray-500"
+          className="h-5 w-5 text-gray-500 sm:flex-row ml-2"
           fill="currentColor"
           viewBox="0 0 20 20"
           xmlns="http://www.w3.org/2000/svg"
@@ -85,37 +85,37 @@ exports[`should display confetti on player win 1`] = `
       </div>
     </button>
     <button
-      className="w-btn-small h-btn text-center text-gray-700 text-sm bg-white border-white 
+      className="w-btn-small sm:h-btn text-center text-gray-700 text-sm bg-white border-white 
  sm:w-full sm:font-semibold sm:text-lg hover:bg-gray-200 disabled:bg-gray-200"
       disabled={true}
       id="doubleDown"
       onClick={[Function]}
     >
       <div
-        className="flex items-center justify-center"
+        className="flex flex-col flex-col-reverse items-center justify-center sm:flex-row "
       >
         DOUBLE DOWN
         <h1
-          className="ml-2 text-base text-gray-500"
+          className="text-base text-gray-500 sm:flex-row ml-2"
         >
           x2
         </h1>
       </div>
     </button>
     <button
-      className="w-btn-small h-btn text-center text-gray-700 text-sm bg-white border-white 
+      className="w-btn-small sm:h-btn text-center text-gray-700 text-sm bg-white border-white 
  sm:w-full sm:font-semibold sm:text-lg hover:bg-gray-200 disabled:bg-gray-200"
       disabled={true}
       id="stand"
       onClick={[Function]}
     >
       <div
-        className="flex items-center justify-center"
+        className="flex flex-col flex-col-reverse items-center justify-center sm:flex-row "
       >
         STAND
         <svg
           aria-hidden="true"
-          className="ml-2 h-5 w-5 text-gray-500"
+          className="h-5 w-5 text-gray-500 sm:flex-row ml-2"
           fill="currentColor"
           viewBox="0 0 20 20"
           xmlns="http://www.w3.org/2000/svg"
@@ -132,19 +132,19 @@ exports[`should display confetti on player win 1`] = `
       </div>
     </button>
     <button
-      className="w-btn-small h-btn text-center text-gray-700 text-sm bg-white border-white 
+      className="w-btn-small sm:h-btn text-center text-gray-700 text-sm bg-white border-white 
  sm:w-full sm:font-semibold sm:text-lg hover:bg-gray-200 disabled:bg-gray-200"
       disabled={true}
       id="restart"
       onClick={[Function]}
     >
       <div
-        className="flex items-center justify-center"
+        className="flex flex-col flex-col-reverse items-center justify-center sm:flex-row "
       >
         RESTART
         <svg
           aria-hidden="true"
-          className="ml-2 h-5 w-5 text-gray-500"
+          className="h-5 w-5 text-gray-500 sm:flex-row ml-2"
           fill="currentColor"
           viewBox="0 0 20 20"
           xmlns="http://www.w3.org/2000/svg"
@@ -239,7 +239,7 @@ exports[`should display confetti on player win 1`] = `
 
 exports[`should render Deal button undisabled when inPlay is false 1`] = `
 <div
-  className="flex flex-col bg-white shadow-xl rounded-2xl border-4  border-white sm: w-full"
+  className="flex flex-col bg-white shadow-xl sm:rounded-2xl border-4  border-white sm: w-full"
 >
   <div
     className="text-center w-full mb-2 mt-2"
@@ -254,19 +254,19 @@ exports[`should render Deal button undisabled when inPlay is false 1`] = `
     className="flex justify-between"
   >
     <button
-      className="w-btn-small h-btn text-center text-gray-700 text-sm bg-white border-white 
+      className="w-btn-small sm:h-btn text-center text-gray-700 text-sm bg-white border-white 
  sm:w-full sm:font-semibold sm:text-lg hover:bg-gray-200 disabled:bg-gray-200"
       disabled={false}
       id="deal"
       onClick={[Function]}
     >
       <div
-        className="flex items-center justify-center"
+        className="flex flex-col flex-col-reverse items-center justify-center sm:flex-row "
       >
         DEAL
         <svg
           aria-hidden="true"
-          className="ml-2 h-5 w-5 text-gray-500"
+          className="w-5 text-gray-500 sm:flex-row ml-2"
           fill="currentColor"
           viewBox="0 0 20 20"
           xmlns="http://www.w3.org/2000/svg"
@@ -280,19 +280,19 @@ exports[`should render Deal button undisabled when inPlay is false 1`] = `
       </div>
     </button>
     <button
-      className="w-btn-small h-btn text-center text-gray-700 text-sm bg-white border-white 
+      className="w-btn-small sm:h-btn text-center text-gray-700 text-sm bg-white border-white 
  sm:w-full sm:font-semibold sm:text-lg hover:bg-gray-200 disabled:bg-gray-200"
       disabled={false}
       id="hit"
       onClick={[Function]}
     >
       <div
-        className="flex items-center justify-center"
+        className="flex flex-col flex-col-reverse items-center justify-center sm:flex-row "
       >
         HIT
         <svg
           aria-hidden="true"
-          className="ml-2 h-5 w-5 text-gray-500"
+          className="h-5 w-5 text-gray-500 sm:flex-row ml-2"
           fill="currentColor"
           viewBox="0 0 20 20"
           xmlns="http://www.w3.org/2000/svg"
@@ -306,37 +306,37 @@ exports[`should render Deal button undisabled when inPlay is false 1`] = `
       </div>
     </button>
     <button
-      className="w-btn-small h-btn text-center text-gray-700 text-sm bg-white border-white 
+      className="w-btn-small sm:h-btn text-center text-gray-700 text-sm bg-white border-white 
  sm:w-full sm:font-semibold sm:text-lg hover:bg-gray-200 disabled:bg-gray-200"
       disabled={false}
       id="doubleDown"
       onClick={[Function]}
     >
       <div
-        className="flex items-center justify-center"
+        className="flex flex-col flex-col-reverse items-center justify-center sm:flex-row "
       >
         DOUBLE DOWN
         <h1
-          className="ml-2 text-base text-gray-500"
+          className="text-base text-gray-500 sm:flex-row ml-2"
         >
           x2
         </h1>
       </div>
     </button>
     <button
-      className="w-btn-small h-btn text-center text-gray-700 text-sm bg-white border-white 
+      className="w-btn-small sm:h-btn text-center text-gray-700 text-sm bg-white border-white 
  sm:w-full sm:font-semibold sm:text-lg hover:bg-gray-200 disabled:bg-gray-200"
       disabled={false}
       id="stand"
       onClick={[Function]}
     >
       <div
-        className="flex items-center justify-center"
+        className="flex flex-col flex-col-reverse items-center justify-center sm:flex-row "
       >
         STAND
         <svg
           aria-hidden="true"
-          className="ml-2 h-5 w-5 text-gray-500"
+          className="h-5 w-5 text-gray-500 sm:flex-row ml-2"
           fill="currentColor"
           viewBox="0 0 20 20"
           xmlns="http://www.w3.org/2000/svg"
@@ -353,19 +353,19 @@ exports[`should render Deal button undisabled when inPlay is false 1`] = `
       </div>
     </button>
     <button
-      className="w-btn-small h-btn text-center text-gray-700 text-sm bg-white border-white 
+      className="w-btn-small sm:h-btn text-center text-gray-700 text-sm bg-white border-white 
  sm:w-full sm:font-semibold sm:text-lg hover:bg-gray-200 disabled:bg-gray-200"
       disabled={true}
       id="restart"
       onClick={[Function]}
     >
       <div
-        className="flex items-center justify-center"
+        className="flex flex-col flex-col-reverse items-center justify-center sm:flex-row "
       >
         RESTART
         <svg
           aria-hidden="true"
-          className="ml-2 h-5 w-5 text-gray-500"
+          className="h-5 w-5 text-gray-500 sm:flex-row ml-2"
           fill="currentColor"
           viewBox="0 0 20 20"
           xmlns="http://www.w3.org/2000/svg"

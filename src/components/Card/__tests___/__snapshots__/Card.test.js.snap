@@ -1,31 +1,29 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`should render 1`] = `
-<div
-  className="bg-white px-3 w-40 h-60 shadow-2xl rounded-lg sm:m-2"
->
+<div>
   <div
-    className="flex flex-col justify-center"
-    style={
-      Object {
-        "backfaceVisibility": "hidden",
-      }
-    }
+    className="-ml-28 bg-white px-3 w-40 h-60 shadow-2xl rounded-lg sm:m-2 sm:ml-0 hover:-translate-y-4 hover:duration-300"
   >
     <div
-      className=""
+      className="flex flex-col justify-center"
+      style={
+        Object {
+          "backfaceVisibility": "hidden",
+        }
+      }
     >
       <div
-        className="flex flex-col w-full items-start"
+        className="flex flex-col w-full items-start "
       >
         <div
           className="flex flex-col items-center"
         >
           <h1
-            className="text-4xl undefined"
+            className="text-4xl cursor-default undefined"
           />
           <h1
-            className="text-4xl undefined"
+            className="text-4xl cursor-default undefined"
           />
         </div>
       </div>
@@ -33,7 +31,7 @@ exports[`should render 1`] = `
         className="flex justify-center"
       >
         <h1
-          className="text-7xl undefined"
+          className="text-7xl cursor-default undefined"
         />
       </div>
       <div
@@ -43,10 +41,10 @@ exports[`should render 1`] = `
           className="flex flex-col items-center"
         >
           <h1
-            className="text-4xl undefined"
+            className="text-4xl cursor-default undefined"
           />
           <h1
-            className="text-4xl undefined"
+            className="text-4xl cursor-default undefined"
           />
         </div>
       </div>
@@ -56,31 +54,29 @@ exports[`should render 1`] = `
 `;
 
 exports[`should render with classNames 1`] = `
-<div
-  className="bg-white px-3 w-40 h-60 shadow-2xl rounded-lg sm:m-2"
->
+<div>
   <div
-    className="flex flex-col justify-center"
-    style={
-      Object {
-        "backfaceVisibility": "hidden",
-      }
-    }
+    className="-ml-28 bg-white px-3 w-40 h-60 shadow-2xl rounded-lg sm:m-2 sm:ml-0 hover:-translate-y-4 hover:duration-300"
   >
     <div
-      className=""
+      className="flex flex-col justify-center"
+      style={
+        Object {
+          "backfaceVisibility": "hidden",
+        }
+      }
     >
       <div
-        className="flex flex-col w-full items-start"
+        className="flex flex-col w-full items-start "
       >
         <div
           className="flex flex-col items-center"
         >
           <h1
-            className="text-4xl undefined"
+            className="text-4xl cursor-default undefined"
           />
           <h1
-            className="text-4xl undefined"
+            className="text-4xl cursor-default undefined"
           />
         </div>
       </div>
@@ -88,7 +84,7 @@ exports[`should render with classNames 1`] = `
         className="flex justify-center"
       >
         <h1
-          className="text-7xl undefined"
+          className="text-7xl cursor-default undefined"
         />
       </div>
       <div
@@ -98,10 +94,10 @@ exports[`should render with classNames 1`] = `
           className="flex flex-col items-center"
         >
           <h1
-            className="text-4xl undefined"
+            className="text-4xl cursor-default undefined"
           />
           <h1
-            className="text-4xl undefined"
+            className="text-4xl cursor-default undefined"
           />
         </div>
       </div>
@@ -111,33 +107,31 @@ exports[`should render with classNames 1`] = `
 `;
 
 exports[`should render with text & colour 1`] = `
-<div
-  className="bg-white px-3 w-40 h-60 shadow-2xl rounded-lg sm:m-2"
->
+<div>
   <div
-    className="flex flex-col justify-center"
-    style={
-      Object {
-        "backfaceVisibility": "hidden",
-      }
-    }
+    className="-ml-28 bg-white px-3 w-40 h-60 shadow-2xl rounded-lg sm:m-2 sm:ml-0 hover:-translate-y-4 hover:duration-300"
   >
     <div
-      className=""
+      className="flex flex-col justify-center"
+      style={
+        Object {
+          "backfaceVisibility": "hidden",
+        }
+      }
     >
       <div
-        className="flex flex-col w-full items-start"
+        className="flex flex-col w-full items-start "
       >
         <div
           className="flex flex-col items-center"
         >
           <h1
-            className="text-4xl text-rose-500"
+            className="text-4xl cursor-default text-rose-500"
           >
             test
           </h1>
           <h1
-            className="text-4xl text-rose-500"
+            className="text-4xl cursor-default text-rose-500"
           >
             test
           </h1>
@@ -147,7 +141,7 @@ exports[`should render with text & colour 1`] = `
         className="flex justify-center"
       >
         <h1
-          className="text-7xl text-rose-500"
+          className="text-7xl cursor-default text-rose-500"
         >
           test
         </h1>
@@ -159,12 +153,12 @@ exports[`should render with text & colour 1`] = `
           className="flex flex-col items-center"
         >
           <h1
-            className="text-4xl text-rose-500"
+            className="text-4xl cursor-default text-rose-500"
           >
             test
           </h1>
           <h1
-            className="text-4xl text-rose-500"
+            className="text-4xl cursor-default text-rose-500"
           >
             test
           </h1>

@@ -97,7 +97,6 @@ it("should return TIE when both players have a black jack", () => {
 it("should return HOUSE BLACKJACK when house has a blackjack", () => {
     expect(getGameStateText({ 
         ...getGameState(),
-        inPlay: true,
         blackJack: true,
         houseWins: true,
     })).toBe("HOUSE BLACKJACK! YOU LOSE");

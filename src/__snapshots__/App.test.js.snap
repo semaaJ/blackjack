@@ -2,33 +2,31 @@
 
 exports[`should only show one dealer card on secondShow is false 1`] = `
 Array [
-  <div
-    className="bg-white px-3 w-40 h-60 shadow-2xl rounded-lg sm:m-2"
-  >
+  <div>
     <div
-      className="flex flex-col justify-center"
-      style={
-        Object {
-          "backfaceVisibility": "hidden",
-        }
-      }
+      className="-ml-28 bg-white px-3 w-40 h-60 shadow-2xl rounded-lg sm:m-2 sm:ml-0 hover:-translate-y-4 hover:duration-300"
     >
       <div
-        className=""
+        className="flex flex-col justify-center"
+        style={
+          Object {
+            "backfaceVisibility": "hidden",
+          }
+        }
       >
         <div
-          className="flex flex-col w-full items-start"
+          className="flex flex-col w-full items-start "
         >
           <div
             className="flex flex-col items-center"
           >
             <h1
-              className="text-4xl text-rose-500"
+              className="text-4xl cursor-default text-rose-500"
             >
               K
             </h1>
             <h1
-              className="text-4xl text-rose-500"
+              className="text-4xl cursor-default text-rose-500"
             >
               K
             </h1>
@@ -38,7 +36,7 @@ Array [
           className="flex justify-center"
         >
           <h1
-            className="text-7xl text-rose-500"
+            className="text-7xl cursor-default text-rose-500"
           >
             K
           </h1>
@@ -50,12 +48,12 @@ Array [
             className="flex flex-col items-center"
           >
             <h1
-              className="text-4xl text-rose-500"
+              className="text-4xl cursor-default text-rose-500"
             >
               K
             </h1>
             <h1
-              className="text-4xl text-rose-500"
+              className="text-4xl cursor-default text-rose-500"
             >
               K
             </h1>
@@ -65,10 +63,10 @@ Array [
     </div>
   </div>,
   <div
-    className="bg-slate-500 px-3 w-40 h-60 shadow-xl rounded-lg sm:m-2"
+    className="bg-slate-500 -ml-28 px-3 w-40 h-60 shadow-xl rounded-lg sm:m-2 sm:ml-0"
   />,
   <div
-    className="bg-slate-500 px-3 w-40 h-60 shadow-xl rounded-lg sm:m-2"
+    className="bg-slate-500 -ml-28 px-3 w-40 h-60 shadow-xl rounded-lg sm:m-2 sm:ml-0"
   />,
 ]
 `;
@@ -81,27 +79,23 @@ exports[`should render 1`] = `
     className="flex flex-col justify-evenly h-full max-w-7xl"
   >
     <div
-      className="flex flex-col"
+      className="flex translate-x-14 w-full justify-center md:transform-none"
     >
       <div
-        className="flex flex-wrap justify-between sm:justify-center"
-      >
-        <div
-          className="bg-slate-500 px-3 w-40 h-60 shadow-xl rounded-lg sm:m-2"
-        />
-        <div
-          className="bg-slate-500 px-3 w-40 h-60 shadow-xl rounded-lg sm:m-2"
-        />
-        <div
-          className="bg-slate-500 px-3 w-40 h-60 shadow-xl rounded-lg sm:m-2"
-        />
-      </div>
+        className="bg-slate-500 -ml-28 px-3 w-40 h-60 shadow-xl rounded-lg sm:m-2 sm:ml-0"
+      />
+      <div
+        className="bg-slate-500 -ml-28 px-3 w-40 h-60 shadow-xl rounded-lg sm:m-2 sm:ml-0"
+      />
+      <div
+        className="bg-slate-500 -ml-28 px-3 w-40 h-60 shadow-xl rounded-lg sm:m-2 sm:ml-0"
+      />
     </div>
     <div
       className="flex items-center justify-center"
     >
       <div
-        className="flex flex-col bg-white shadow-xl rounded-2xl border-4  border-white sm: w-full"
+        className="flex flex-col bg-white shadow-xl sm:rounded-2xl border-4  border-white sm: w-full"
       >
         <div
           className="text-center w-full mb-2 mt-2"
@@ -116,19 +110,19 @@ exports[`should render 1`] = `
           className="flex justify-between"
         >
           <button
-            className="w-btn-small h-btn text-center text-gray-700 text-sm bg-white border-white 
+            className="w-btn-small sm:h-btn text-center text-gray-700 text-sm bg-white border-white 
  sm:w-full sm:font-semibold sm:text-lg hover:bg-gray-200 disabled:bg-gray-200"
             disabled={false}
             id="deal"
             onClick={[Function]}
           >
             <div
-              className="flex items-center justify-center"
+              className="flex flex-col flex-col-reverse items-center justify-center sm:flex-row "
             >
               DEAL
               <svg
                 aria-hidden="true"
-                className="ml-2 h-5 w-5 text-gray-500"
+                className="w-5 text-gray-500 sm:flex-row ml-2"
                 fill="currentColor"
                 viewBox="0 0 20 20"
                 xmlns="http://www.w3.org/2000/svg"
@@ -142,19 +136,19 @@ exports[`should render 1`] = `
             </div>
           </button>
           <button
-            className="w-btn-small h-btn text-center text-gray-700 text-sm bg-white border-white 
+            className="w-btn-small sm:h-btn text-center text-gray-700 text-sm bg-white border-white 
  sm:w-full sm:font-semibold sm:text-lg hover:bg-gray-200 disabled:bg-gray-200"
             disabled={true}
             id="hit"
             onClick={[Function]}
           >
             <div
-              className="flex items-center justify-center"
+              className="flex flex-col flex-col-reverse items-center justify-center sm:flex-row "
             >
               HIT
               <svg
                 aria-hidden="true"
-                className="ml-2 h-5 w-5 text-gray-500"
+                className="h-5 w-5 text-gray-500 sm:flex-row ml-2"
                 fill="currentColor"
                 viewBox="0 0 20 20"
                 xmlns="http://www.w3.org/2000/svg"
@@ -168,37 +162,37 @@ exports[`should render 1`] = `
             </div>
           </button>
           <button
-            className="w-btn-small h-btn text-center text-gray-700 text-sm bg-white border-white 
+            className="w-btn-small sm:h-btn text-center text-gray-700 text-sm bg-white border-white 
  sm:w-full sm:font-semibold sm:text-lg hover:bg-gray-200 disabled:bg-gray-200"
             disabled={true}
             id="doubleDown"
             onClick={[Function]}
           >
             <div
-              className="flex items-center justify-center"
+              className="flex flex-col flex-col-reverse items-center justify-center sm:flex-row "
             >
               DOUBLE DOWN
               <h1
-                className="ml-2 text-base text-gray-500"
+                className="text-base text-gray-500 sm:flex-row ml-2"
               >
                 x2
               </h1>
             </div>
           </button>
           <button
-            className="w-btn-small h-btn text-center text-gray-700 text-sm bg-white border-white 
+            className="w-btn-small sm:h-btn text-center text-gray-700 text-sm bg-white border-white 
  sm:w-full sm:font-semibold sm:text-lg hover:bg-gray-200 disabled:bg-gray-200"
             disabled={true}
             id="stand"
             onClick={[Function]}
           >
             <div
-              className="flex items-center justify-center"
+              className="flex flex-col flex-col-reverse items-center justify-center sm:flex-row "
             >
               STAND
               <svg
                 aria-hidden="true"
-                className="ml-2 h-5 w-5 text-gray-500"
+                className="h-5 w-5 text-gray-500 sm:flex-row ml-2"
                 fill="currentColor"
                 viewBox="0 0 20 20"
                 xmlns="http://www.w3.org/2000/svg"
@@ -215,19 +209,19 @@ exports[`should render 1`] = `
             </div>
           </button>
           <button
-            className="w-btn-small h-btn text-center text-gray-700 text-sm bg-white border-white 
+            className="w-btn-small sm:h-btn text-center text-gray-700 text-sm bg-white border-white 
  sm:w-full sm:font-semibold sm:text-lg hover:bg-gray-200 disabled:bg-gray-200"
             disabled={true}
             id="restart"
             onClick={[Function]}
           >
             <div
-              className="flex items-center justify-center"
+              className="flex flex-col flex-col-reverse items-center justify-center sm:flex-row "
             >
               RESTART
               <svg
                 aria-hidden="true"
-                className="ml-2 h-5 w-5 text-gray-500"
+                className="h-5 w-5 text-gray-500 sm:flex-row ml-2"
                 fill="currentColor"
                 viewBox="0 0 20 20"
                 xmlns="http://www.w3.org/2000/svg"
@@ -322,27 +316,23 @@ exports[`should render 1`] = `
       </div>
     </div>
     <div
-      className="flex flex-col"
+      className="flex translate-x-14 w-full justify-center md:transform-none"
     >
       <div
-        className="flex flex-wrap justify-between sm:justify-center"
-      >
-        <div
-          className="bg-slate-500 px-3 w-40 h-60 shadow-xl rounded-lg sm:m-2"
-        />
-        <div
-          className="bg-slate-500 px-3 w-40 h-60 shadow-xl rounded-lg sm:m-2"
-        />
-        <div
-          className="bg-slate-500 px-3 w-40 h-60 shadow-xl rounded-lg sm:m-2"
-        />
-        <div
-          className="bg-slate-500 px-3 w-40 h-60 shadow-xl rounded-lg sm:m-2"
-        />
-        <div
-          className="bg-slate-500 px-3 w-40 h-60 shadow-xl rounded-lg sm:m-2"
-        />
-      </div>
+        className="bg-slate-500 -ml-28 px-3 w-40 h-60 shadow-xl rounded-lg sm:m-2 sm:ml-0"
+      />
+      <div
+        className="bg-slate-500 -ml-28 px-3 w-40 h-60 shadow-xl rounded-lg sm:m-2 sm:ml-0"
+      />
+      <div
+        className="bg-slate-500 -ml-28 px-3 w-40 h-60 shadow-xl rounded-lg sm:m-2 sm:ml-0"
+      />
+      <div
+        className="bg-slate-500 -ml-28 px-3 w-40 h-60 shadow-xl rounded-lg sm:m-2 sm:ml-0"
+      />
+      <div
+        className="bg-slate-500 -ml-28 px-3 w-40 h-60 shadow-xl rounded-lg sm:m-2 sm:ml-0"
+      />
     </div>
   </div>
 </div>
@@ -350,33 +340,31 @@ exports[`should render 1`] = `
 
 exports[`should render all house cards on secondShow 1`] = `
 Array [
-  <div
-    className="bg-white px-3 w-40 h-60 shadow-2xl rounded-lg sm:m-2"
-  >
+  <div>
     <div
-      className="flex flex-col justify-center"
-      style={
-        Object {
-          "backfaceVisibility": "hidden",
-        }
-      }
+      className="-ml-28 bg-white px-3 w-40 h-60 shadow-2xl rounded-lg sm:m-2 sm:ml-0 hover:-translate-y-4 hover:duration-300"
     >
       <div
-        className=""
+        className="flex flex-col justify-center"
+        style={
+          Object {
+            "backfaceVisibility": "hidden",
+          }
+        }
       >
         <div
-          className="flex flex-col w-full items-start"
+          className="flex flex-col w-full items-start "
         >
           <div
             className="flex flex-col items-center"
           >
             <h1
-              className="text-4xl text-rose-500"
+              className="text-4xl cursor-default text-rose-500"
             >
               K
             </h1>
             <h1
-              className="text-4xl text-rose-500"
+              className="text-4xl cursor-default text-rose-500"
             >
               K
             </h1>
@@ -386,7 +374,7 @@ Array [
           className="flex justify-center"
         >
           <h1
-            className="text-7xl text-rose-500"
+            className="text-7xl cursor-default text-rose-500"
           >
             K
           </h1>
@@ -398,12 +386,12 @@ Array [
             className="flex flex-col items-center"
           >
             <h1
-              className="text-4xl text-rose-500"
+              className="text-4xl cursor-default text-rose-500"
             >
               K
             </h1>
             <h1
-              className="text-4xl text-rose-500"
+              className="text-4xl cursor-default text-rose-500"
             >
               K
             </h1>
@@ -412,33 +400,31 @@ Array [
       </div>
     </div>
   </div>,
-  <div
-    className="bg-white px-3 w-40 h-60 shadow-2xl rounded-lg sm:m-2"
-  >
+  <div>
     <div
-      className="flex flex-col justify-center"
-      style={
-        Object {
-          "backfaceVisibility": "hidden",
-        }
-      }
+      className="-ml-28 bg-white px-3 w-40 h-60 shadow-2xl rounded-lg sm:m-2 sm:ml-0 hover:-translate-y-4 hover:duration-300"
     >
       <div
-        className=""
+        className="flex flex-col justify-center"
+        style={
+          Object {
+            "backfaceVisibility": "hidden",
+          }
+        }
       >
         <div
-          className="flex flex-col w-full items-start"
+          className="flex flex-col w-full items-start "
         >
           <div
             className="flex flex-col items-center"
           >
             <h1
-              className="text-4xl undefined"
+              className="text-4xl cursor-default undefined"
             >
               K
             </h1>
             <h1
-              className="text-4xl undefined"
+              className="text-4xl cursor-default undefined"
             >
               K
             </h1>
@@ -448,7 +434,7 @@ Array [
           className="flex justify-center"
         >
           <h1
-            className="text-7xl undefined"
+            className="text-7xl cursor-default undefined"
           >
             K
           </h1>
@@ -460,12 +446,12 @@ Array [
             className="flex flex-col items-center"
           >
             <h1
-              className="text-4xl undefined"
+              className="text-4xl cursor-default undefined"
             >
               K
             </h1>
             <h1
-              className="text-4xl undefined"
+              className="text-4xl cursor-default undefined"
             >
               K
             </h1>
@@ -474,33 +460,31 @@ Array [
       </div>
     </div>
   </div>,
-  <div
-    className="bg-white px-3 w-40 h-60 shadow-2xl rounded-lg sm:m-2"
-  >
+  <div>
     <div
-      className="flex flex-col justify-center"
-      style={
-        Object {
-          "backfaceVisibility": "hidden",
-        }
-      }
+      className="-ml-28 bg-white px-3 w-40 h-60 shadow-2xl rounded-lg sm:m-2 sm:ml-0 hover:-translate-y-4 hover:duration-300"
     >
       <div
-        className=""
+        className="flex flex-col justify-center"
+        style={
+          Object {
+            "backfaceVisibility": "hidden",
+          }
+        }
       >
         <div
-          className="flex flex-col w-full items-start"
+          className="flex flex-col w-full items-start "
         >
           <div
             className="flex flex-col items-center"
           >
             <h1
-              className="text-4xl undefined"
+              className="text-4xl cursor-default undefined"
             >
               K
             </h1>
             <h1
-              className="text-4xl undefined"
+              className="text-4xl cursor-default undefined"
             >
               K
             </h1>
@@ -510,7 +494,7 @@ Array [
           className="flex justify-center"
         >
           <h1
-            className="text-7xl undefined"
+            className="text-7xl cursor-default undefined"
           >
             K
           </h1>
@@ -522,12 +506,12 @@ Array [
             className="flex flex-col items-center"
           >
             <h1
-              className="text-4xl undefined"
+              className="text-4xl cursor-default undefined"
             >
               K
             </h1>
             <h1
-              className="text-4xl undefined"
+              className="text-4xl cursor-default undefined"
             >
               K
             </h1>
@@ -541,33 +525,31 @@ Array [
 
 exports[`should render player cards 1`] = `
 Array [
-  <div
-    className="bg-white px-3 w-40 h-60 shadow-2xl rounded-lg sm:m-2"
-  >
+  <div>
     <div
-      className="flex flex-col justify-center"
-      style={
-        Object {
-          "backfaceVisibility": "hidden",
-        }
-      }
+      className="-ml-28 bg-white px-3 w-40 h-60 shadow-2xl rounded-lg sm:m-2 sm:ml-0 hover:-translate-y-4 hover:duration-300"
     >
       <div
-        className=""
+        className="flex flex-col justify-center"
+        style={
+          Object {
+            "backfaceVisibility": "hidden",
+          }
+        }
       >
         <div
-          className="flex flex-col w-full items-start"
+          className="flex flex-col w-full items-start "
         >
           <div
             className="flex flex-col items-center"
           >
             <h1
-              className="text-4xl text-rose-500"
+              className="text-4xl cursor-default text-rose-500"
             >
               K
             </h1>
             <h1
-              className="text-4xl text-rose-500"
+              className="text-4xl cursor-default text-rose-500"
             >
               K
             </h1>
@@ -577,7 +559,7 @@ Array [
           className="flex justify-center"
         >
           <h1
-            className="text-7xl text-rose-500"
+            className="text-7xl cursor-default text-rose-500"
           >
             K
           </h1>
@@ -589,12 +571,12 @@ Array [
             className="flex flex-col items-center"
           >
             <h1
-              className="text-4xl text-rose-500"
+              className="text-4xl cursor-default text-rose-500"
             >
               K
             </h1>
             <h1
-              className="text-4xl text-rose-500"
+              className="text-4xl cursor-default text-rose-500"
             >
               K
             </h1>
@@ -603,33 +585,31 @@ Array [
       </div>
     </div>
   </div>,
-  <div
-    className="bg-white px-3 w-40 h-60 shadow-2xl rounded-lg sm:m-2"
-  >
+  <div>
     <div
-      className="flex flex-col justify-center"
-      style={
-        Object {
-          "backfaceVisibility": "hidden",
-        }
-      }
+      className="-ml-28 bg-white px-3 w-40 h-60 shadow-2xl rounded-lg sm:m-2 sm:ml-0 hover:-translate-y-4 hover:duration-300"
     >
       <div
-        className=""
+        className="flex flex-col justify-center"
+        style={
+          Object {
+            "backfaceVisibility": "hidden",
+          }
+        }
       >
         <div
-          className="flex flex-col w-full items-start"
+          className="flex flex-col w-full items-start "
         >
           <div
             className="flex flex-col items-center"
           >
             <h1
-              className="text-4xl text-rose-500"
+              className="text-4xl cursor-default text-rose-500"
             >
               K
             </h1>
             <h1
-              className="text-4xl text-rose-500"
+              className="text-4xl cursor-default text-rose-500"
             >
               K
             </h1>
@@ -639,7 +619,7 @@ Array [
           className="flex justify-center"
         >
           <h1
-            className="text-7xl text-rose-500"
+            className="text-7xl cursor-default text-rose-500"
           >
             K
           </h1>
@@ -651,12 +631,12 @@ Array [
             className="flex flex-col items-center"
           >
             <h1
-              className="text-4xl text-rose-500"
+              className="text-4xl cursor-default text-rose-500"
             >
               K
             </h1>
             <h1
-              className="text-4xl text-rose-500"
+              className="text-4xl cursor-default text-rose-500"
             >
               K
             </h1>
@@ -665,33 +645,31 @@ Array [
       </div>
     </div>
   </div>,
-  <div
-    className="bg-white px-3 w-40 h-60 shadow-2xl rounded-lg sm:m-2"
-  >
+  <div>
     <div
-      className="flex flex-col justify-center"
-      style={
-        Object {
-          "backfaceVisibility": "hidden",
-        }
-      }
+      className="-ml-28 bg-white px-3 w-40 h-60 shadow-2xl rounded-lg sm:m-2 sm:ml-0 hover:-translate-y-4 hover:duration-300"
     >
       <div
-        className=""
+        className="flex flex-col justify-center"
+        style={
+          Object {
+            "backfaceVisibility": "hidden",
+          }
+        }
       >
         <div
-          className="flex flex-col w-full items-start"
+          className="flex flex-col w-full items-start "
         >
           <div
             className="flex flex-col items-center"
           >
             <h1
-              className="text-4xl text-rose-500"
+              className="text-4xl cursor-default text-rose-500"
             >
               K
             </h1>
             <h1
-              className="text-4xl text-rose-500"
+              className="text-4xl cursor-default text-rose-500"
             >
               K
             </h1>
@@ -701,7 +679,7 @@ Array [
           className="flex justify-center"
         >
           <h1
-            className="text-7xl text-rose-500"
+            className="text-7xl cursor-default text-rose-500"
           >
             K
           </h1>
@@ -713,12 +691,12 @@ Array [
             className="flex flex-col items-center"
           >
             <h1
-              className="text-4xl text-rose-500"
+              className="text-4xl cursor-default text-rose-500"
             >
               K
             </h1>
             <h1
-              className="text-4xl text-rose-500"
+              className="text-4xl cursor-default text-rose-500"
             >
               K
             </h1>
@@ -728,10 +706,10 @@ Array [
     </div>
   </div>,
   <div
-    className="bg-slate-500 px-3 w-40 h-60 shadow-xl rounded-lg sm:m-2"
+    className="bg-slate-500 -ml-28 px-3 w-40 h-60 shadow-xl rounded-lg sm:m-2 sm:ml-0"
   />,
   <div
-    className="bg-slate-500 px-3 w-40 h-60 shadow-xl rounded-lg sm:m-2"
+    className="bg-slate-500 -ml-28 px-3 w-40 h-60 shadow-xl rounded-lg sm:m-2 sm:ml-0"
   />,
 ]
 `;
