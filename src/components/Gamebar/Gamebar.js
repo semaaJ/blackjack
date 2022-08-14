@@ -9,6 +9,7 @@ export const CHIPS = [
     { "value": 50, imageUrl: "https://s3-us-west-2.amazonaws.com/s.cdpn.io/1151732/chip-3.png", alt: "Chip 50 value" }
 ]
 
+// this can certainly be better
 export const getGameStateText = (state) => {
     if (state.blackJack) {
         if (state.playerWins) {

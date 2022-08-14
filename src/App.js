@@ -35,6 +35,7 @@ export const renderPlayerCards = (cards) => {
   )
 }
 
+// mock these and just check that setState is being called
 export const bet = (state, setState, amount) => setState(playerBet(state, amount));
 export const hit = (state, setState) => setState(playerHit(state));
 export const doubleDown = (state, setState) => setState(playerDoubleDown(state));
@@ -50,6 +51,7 @@ function App() {
           <div className="flex translate-x-14 w-full justify-center md:transform-none">
             { renderHouseCards(state.house.cards, state.showSecond) }
           </div>
+
 
           <div className="flex items-center justify-center">
             <Gamebar 

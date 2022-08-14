@@ -14,6 +14,7 @@ export const GAME_STATE = {
     initialBet: true,
     pot: 0,
     tie: false,
+    // lets make this cleaner
     houseWins: false,
     playerWins: false,
     houseBust: false,
