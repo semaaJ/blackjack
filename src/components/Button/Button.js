@@ -1,11 +1,11 @@
-import { ColorSwatchIcon, RefreshIcon, EyeIcon, PlayIcon } from '@heroicons/react/solid';
+import { ColorSwatchIcon, RefreshIcon, EyeIcon, PlayIcon, ChevronDoubleDownIcon } from '@heroicons/react/solid';
 
 export const ICONS = {
-    0: <ColorSwatchIcon className="w-5 text-gray-500 sm:flex-row ml-2" />,
-    1: <PlayIcon className="h-5 w-5 text-gray-500 sm:flex-row ml-2" />,
-    2: <h1 className="text-base text-gray-500 sm:flex-row ml-2">x2</h1>,              
-    3: <EyeIcon className="h-5 w-5 text-gray-500 sm:flex-row ml-2" />,            
-    4: <RefreshIcon className="h-5 w-5 text-gray-500 sm:flex-row ml-2" />                            
+    0: <ColorSwatchIcon className="h-5 w-5 text-gray-500" />,
+    1: <PlayIcon className="h-5 w-5 text-gray-500" />,
+    2: <ChevronDoubleDownIcon className="h-5 w-5 text-gray-500" />,              
+    3: <EyeIcon className="h-5 w-5 text-gray-500" />,            
+    4: <RefreshIcon className="h-5 w-5 text-gray-500" />                            
 }
 
 const Button = (props) => {
@@ -15,11 +15,11 @@ const Button = (props) => {
             id={id}
             disabled={disabled}
             onClick={onClick} 
-            className="w-btn-small sm:h-btn text-center text-gray-700 text-sm bg-white border-white 
-                sm:w-full sm:font-semibold sm:text-lg hover:bg-gray-200 disabled:bg-gray-200">
-               <div className="flex flex-col flex-col-reverse items-center justify-center sm:flex-row ">
-                   { text }
-                   { ICONS[icon]}             
+            aria-label={`${ text } button`}
+            className="w-1/5 py-2 text-center text-gray-700 text-sm bg-white border-white sm:text-lg hover:bg-gray-200 disabled:bg-gray-200">
+               <div className="flex flex-col items-center align-middle justify-center">
+                    { ICONS[icon]}             
+                    { text }
                 </div>
         </button>
     )
