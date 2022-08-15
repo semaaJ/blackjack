@@ -19,24 +19,24 @@ const getGameState = () => {
 }
 
 it('should call deal on deal button click', () => {
-    const mock = jest.fn();
-    render(<Gamebar deal={mock} state={getGameState()} />);
+    const deal = jest.fn();
+    render(<Gamebar deal={deal} state={getGameState()} />);
     fireEvent.click(screen.getByText("DEAL"));
-    expect(mock).toHaveBeenCalled()
+    expect(deal).toHaveBeenCalled()
 });
 
 it('should call hit on hit button click', () => {
-    const mock = jest.fn();
-    render(<Gamebar hit={mock} state={getGameState()} />);
+    const hit = jest.fn();
+    render(<Gamebar hit={hit} state={getGameState()} />);
     fireEvent.click(screen.getByText("HIT"));
-    expect(mock).toHaveBeenCalled()
+    expect(hit).toHaveBeenCalled()
 });
 
 it('should call doubleDown on doubleDown button click', () => {
-    const mock = jest.fn();
-    render(<Gamebar doubleDown={mock} state={getGameState()} />);
-    fireEvent.click(screen.getByText("DOUBLE DOWN"));
-    expect(mock).toHaveBeenCalled()
+    const doubleDown = jest.fn();
+    render(<Gamebar doubleDown={doubleDown} state={getGameState()} />);
+    fireEvent.click(screen.getByText("D.DOWN"));
+    expect(doubleDown).toHaveBeenCalled()
 });
 
 it('should call stand on stand button click', () => {
@@ -47,27 +47,27 @@ it('should call stand on stand button click', () => {
 });
 
 it('should call reset on reset button click', () => {
-    const mock = jest.fn();
-    render(<Gamebar reset={mock} state={{ ...getGameState(), inPlay: true }} />);
+    const reset = jest.fn();
+    render(<Gamebar reset={reset} state={{ ...getGameState(), inPlay: true }} />);
     fireEvent.click(screen.getByText("RESTART"));
-    expect(mock).toHaveBeenCalled()
+    expect(reset).toHaveBeenCalled()
 });
 
 it('should call bet on chip click when in play', () => {
-    const mock = jest.fn();
-    render(<Gamebar bet={mock} state={{ ...getGameState(), inPlay: true, initialBet: true }} />);
+    const bet = jest.fn();
+    render(<Gamebar bet={bet} state={{ ...getGameState(), inPlay: true, initialBet: true }} />);
     fireEvent.click(screen.getByAltText("Chip 5 value"));
-    expect(mock).toHaveBeenCalled()
+    expect(bet).toHaveBeenCalled()
 });
 
 it('should display confetti on player win', () => {
-    const tree = renderer.create(<Gamebar state={{ ...getGameState(), playerWins: true, house: { score: 0 }, player: { score: 21 } }} />).toJSON();
-    expect(tree).toMatchSnapshot();
+    const component = renderer.create(<Gamebar state={{ ...getGameState(), playerWins: true, house: { score: 0 }, player: { score: 21 } }} />).toJSON();
+    expect(component).toMatchSnapshot();
 });
 
 it('should render Deal button undisabled when inPlay is false', () => {
-    const tree = renderer.create(<Gamebar state={getGameState()} />).toJSON();
-    expect(tree).toMatchSnapshot();
+    const component = renderer.create(<Gamebar state={getGameState()} />).toJSON();
+    expect(component).toMatchSnapshot();
 });
 
 it("should return PLAYER BLACKJACK! YOU WIN on player black jack & no tie", () => {
@@ -102,7 +102,7 @@ it("should return HOUSE BLACKJACK when house has a blackjack", () => {
     })).toBe("HOUSE BLACKJACK! YOU LOSE");
 });
 
-it("should return DEAL CARDS when if not in play", () => {
+it("should return DEAL CARDS when not in play", () => {
     expect(getGameStateText(getGameState())).toBe("DEAL CARDS");
 });
 
@@ -142,7 +142,7 @@ it("should return MAKE A BET on inital bet", () => {
     })).toBe("MAKE A BET");
 });
 
-it("should return HIT, DOUBLE DOWN OR STAND", () => {
+it("should return HIT, DOUBLE DOWN OR STAND otherwise", () => {
     expect(getGameStateText({ 
         ...getGameState(),
         initialBet: false,

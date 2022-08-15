@@ -14,7 +14,6 @@ export const GAME_STATE = {
     initialBet: true,
     pot: 0,
     tie: false,
-    // lets make this cleaner
     houseWins: false,
     playerWins: false,
     houseBust: false,
@@ -50,11 +49,12 @@ export const createDeck = () => flatten(
 
 export const shuffleDeck = (deck) => {
     let i = deck.length;
+    let shuffled = Object.assign([], deck);
     while (--i > 0) {
       let rInd = Math.floor(Math.random() * (i + 1));
-      [deck[rInd], deck[i]] = [deck[i], deck[rInd]];
+      [shuffled[rInd], shuffled[i]] = [shuffled[i], shuffled[rInd]];
     }
-    return deck;
+    return shuffled;
 }
 
 export const initialiseGame = () => {
@@ -77,17 +77,13 @@ export const dealRound = (state) => {
 
     const playerCards = [house.deck.pop(), house.deck.pop()];
     const houseCards = [house.deck.pop(), house.deck.pop()];
-
     const playerScore = calculateScore(playerCards);
     const houseScore = calculateScore(houseCards);
 
     if (isBlackJack(playerCards)) {
-        const houseBlackJack = isBlackJack(houseCards);
-
         return makeMove({
             ...state,
             inPlay: true,
-            //
             houseWins: false,
             playerWins: false,
             houseBust: false,
@@ -95,7 +91,6 @@ export const dealRound = (state) => {
             showSecond: false,
             tie: false,
             blackJack: true,
-            //
             player: {
                 ...player,
                 isBlackJack: true,
@@ -107,7 +102,7 @@ export const dealRound = (state) => {
                 deck: house.deck,
                 cards: houseCards,
                 score: houseScore,
-                isBlackJack: houseBlackJack
+                isBlackJack: isBlackJack(houseCards)
             }
             
         }, "blackjack");
@@ -115,7 +110,6 @@ export const dealRound = (state) => {
 
     return {
         ...state,
-        //
         inPlay: true,
         houseWins: false,
         playerWins: false,
@@ -124,7 +118,6 @@ export const dealRound = (state) => {
         showSecond: false,
         tie: false,
         blackJack: false,
-        //
         player: {
             ...player,
             cards: playerCards,
@@ -141,6 +134,11 @@ export const dealRound = (state) => {
 
 export const playerBet = (state, bet) => {
     const { pot, player } = state;
+
+    if (player.bank - bet < 0) {
+        return state;
+    }
+    
     return {
         ...state,
         initialBet: false,
@@ -189,14 +187,14 @@ export const playerHit = (state) => {
 }
 
 export const playerDoubleDown = (state) => {
-    return {
+    return playerHit({
         ...state,
         pot: state.pot * 2,
         player: {
             ...state.player,
             bank: state.player.bank - state.pot,
         }
-    }
+    });
 }
 
 export const makeMove = (state, type) => {
@@ -214,7 +212,7 @@ export const makeMove = (state, type) => {
                     inPlay: false,
                     player: {
                         ...player,
-                        bank: player.bank + (pot / 2),
+                        bank: player.bank + (100 / 2),
                         isBlackJack: false
                     },
                 }
@@ -338,18 +336,20 @@ export const makeMove = (state, type) => {
                     }
                 }
             }
-        return state;
+            return state;
+        default:
+            return state;
 }}
 
 export const calculateScore = (cards) => {
     let aces = 0;
-    let total = cards.reduce((total, card) => {
+    let total = cards.reduce((t, card) => {
         switch(card.rank) {
             case("K"): 
             case("Q"): 
-            case("J"): return total + 10;;
-            case("A"): aces+=1; return total + 1;
-            default: return total + parseInt(card.rank); 
+            case("J"): return t + 10;;
+            case("A"): aces+=1; return t + 1;
+            default: return t + parseInt(card.rank); 
         }
     }, 0);
     if (aces > 0 && total + 10 <= 21) total += 10;

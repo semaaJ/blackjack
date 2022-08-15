@@ -65,7 +65,6 @@ it("should shuffle the deck", () => {
     expect(isEqual(deck, clone)).toBe(false);
 });
 
-
 it("should deal two cards to the house and player on dealers round", () => {
     const state = createGameState();
     const dealState = dealRound(state);
@@ -78,6 +77,18 @@ it("should allow the player to bet & remove from their balance", () => {
     const betState = playerBet(GAME_STATE, 100);
     expect(betState.pot === 100).toBe(true);
     expect(betState.player.bank === 900).toBe(true);
+});
+
+it("should not bet when the wager is greater than the player's bank", () => {
+    const betState = playerBet({
+        ...GAME_STATE,
+        pot: 100,
+        player: {
+            ...GAME_STATE.player,
+            bank: 50
+        }
+    }, 100);
+    expect(betState.pot === 100).toBe(true);
 });
 
 it("should allow the player to hit", () => {
@@ -126,12 +137,12 @@ it("should calculate king, jack and queen score correctly", () => {
     expect(calculateScore(cards)).toBe(12);
  });
 
-it("should return true on blackjack", () => {
+it("should return true if a pair of cards is a black jack", () => {
     const cards = [{ rank: "A"}, { rank: "K" }];
     expect(isBlackJack(cards)).toBe(true);
 });
 
-it("should return false on !blackjack", () => {
+it("should return flase if a pair of cards is not a black jack", () => {
     const cards = [{ rank: "9"}, { rank: "1" }, { rank: "1" }];
     expect(isBlackJack(cards)).toBe(false);
 });
@@ -154,7 +165,7 @@ it("should allow a player to win on stand if house bust", () => {
         pot: 100,
         player: {
             ...state.player,
-            cards: [{ rank: "K", rank: "A"}]
+            cards: [{ rank: "K"}, { rank: "A"}]
         },
         house: {
             ...state.house,
@@ -172,11 +183,11 @@ it("should pull a new card from the deck on stand when house score < 17", () => 
         pot: 100,
         player: {
             ...state.player,
-            cards: [{ rank: "K", rank: "A"}]
+            cards: [{ rank: "K"}, { rank: "A" }]
         },
         house: {
             ...state.house,
-            cards: [{ rank: "2" }, { rank: "9"} ]
+            cards: [{ rank: "2" }, { rank: "9" } ]
         }
     });
     expect(standState.house.cards.length).toBe(3);
@@ -190,7 +201,7 @@ it("should allow a player to win  on stand when their score is closer to 21 than
         player: {
             ...state.player,
             score: 20,
-            cards: [{ rank: "K", rank: "10"}]
+            cards: [{ rank: "K" }, { rank: "10" }]
         },
         house: {
             ...state.house,
@@ -201,7 +212,7 @@ it("should allow a player to win  on stand when their score is closer to 21 than
     expect(standState.playerWins).toBe(true);
 });
 
-it("should allow house to win  on stand when their score is closer to 21 than player", () => {
+it("should allow house to win on stand when their score is closer to 21 than player", () => {
     const state = createGameState();
     const standState = playerStand({
         ...state,
@@ -209,7 +220,7 @@ it("should allow house to win  on stand when their score is closer to 21 than pl
         player: {
             ...state.player,
             score: 19,
-            cards: [{ rank: "K", rank: "9"}]
+            cards: [{ rank: "K"}, { rank: "9"}]
         },
         house: {
             ...state.house,
@@ -228,7 +239,7 @@ it("should tie on equal score", () => {
         player: {
             ...state.player,
             score: 20,
-            cards: [{ rank: "K", rank: "10"}]
+            cards: [{ rank: "K"}, { rank: "10"}]
         },
         house: {
             ...state.house,
@@ -287,7 +298,7 @@ it("should return state on dealRound when not BlackJack", () => {
     expect(drState.player.isBlackJack).toBe(false);
 });
 
-it("should reset deck if deck < 4 on dealRound ", () => {
+it("should reset deck if deck < 4 on dealRound", () => {
     const state = createGameState();
     const hitState = dealRound({
         ...state,
@@ -324,6 +335,7 @@ it("should double the wager when playerDoubleDown called", () => {
         pot: 200,
         player: {
             bank: 800,
+            cards: [{ rank: "1" }, { rank: "1"}, { rank: "1"} ]
         }
     });
     expect(ddState.pot).toBe(400);

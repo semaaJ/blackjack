@@ -4,8 +4,7 @@ module.exports = {
   theme: {
     extend: {
       width: {
-        "btn": "150px",
-        "btn-small": "75px"
+        "gb": "1000px",
       },
       height: {
         "btn": "45px",
